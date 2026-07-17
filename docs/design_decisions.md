@@ -134,3 +134,15 @@ the full-length main checkpoint (different training budgets would confound
 the comparison). The main-results table still uses the full-length β = 0.5
 checkpoints. Ablation artifacts are tagged `_beta{value}` and never mixed
 into main results (Hard Rule 1).
+
+## 2026-07-17 — (j) Finding: FairRotation ≡ RoundRobin at supply = 2000
+
+In the main evaluation the two rotation baselines produce byte-identical
+metrics. Cause: at supply = 2000 a pre-shedding deficit occurs nearly every
+hour, so FairRotation's "least-shed zone first" ordering degenerates to a
+fixed cycle — after the first five deficit hours every zone has equal
+cumulative outage, and ties resolve in zone order, i.e. RoundRobin. The two
+baselines would only diverge in regimes with intermittent deficits. Kept
+both in the table (they are distinct *algorithms* that happen to coincide
+in this regime) with this explanation; collapsing them post-hoc would be
+result-driven baseline pruning.

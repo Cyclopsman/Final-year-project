@@ -1,0 +1,52 @@
+# Single source of truth for ALL parameters (SPEC.md §1).
+# Any change to env/reward sections invalidates prior results (Hard Rule 1).
+env:
+  n_zones: 5
+  episode_hours: 168
+  timestep_hours: 1
+  shed_levels: [0.0, 0.25, 0.5, 0.75, 1.0]
+  peak_demand_estimate_mw: 2600      # normalization constant for reward energy terms
+zones:
+  - {name: "Greater Accra", criticality: 1.00, base_demand_mw: 750, industrial_share: 0.35}
+  - {name: "Ashanti",       criticality: 0.85, base_demand_mw: 550, industrial_share: 0.30}
+  - {name: "Western",       criticality: 0.80, base_demand_mw: 420, industrial_share: 0.40}
+  - {name: "Volta",         criticality: 0.60, base_demand_mw: 260, industrial_share: 0.15}
+  - {name: "Northern",      criticality: 0.55, base_demand_mw: 300, industrial_share: 0.10}
+demand:
+  morning_peak_hour: 7
+  evening_peak_hour: 19
+  morning_peak_width: 2.5
+  evening_peak_width: 3.0
+  morning_peak_amp: 0.35             # fraction above base
+  evening_peak_amp: 0.55
+  weekend_dip: 0.88                  # multiplier Sat/Sun
+  harmattan_multiplier: 1.10         # Dec-Feb evening bump
+  noise_std_frac: 0.03
+supply:
+  mean_mw: 2000                      # EXPERIMENT SETTING — all agents trained/evaled here
+  std_mw: 120
+  seasonal_multipliers: {dry: 0.95, wet: 1.05}   # hydro-driven
+  shock_prob_per_hour: 0.01
+  shock_depth_frac: [0.10, 0.30]     # uniform range
+  shock_recovery_rate: 0.15          # exponential decay per hour
+reward:
+  alpha_wue: 1.0
+  beta_fairness: 0.5
+  gamma_imbalance: 2.0
+  delta_instability: 0.1
+  fairness_window_hours: 24
+training:
+  gamma: 0.99
+  lr: 5.0e-4
+  batch_size: 64
+  buffer_size: 100000
+  train_every: 4
+  polyak_tau: 0.005
+  grad_clip: 10.0
+  eps_start: 1.0
+  eps_end: 0.05
+  eps_decay_steps: 60000
+  idqn_steps: 130000
+  vdn_steps: 150000
+  qmix_steps: 200000
+  seed: 42

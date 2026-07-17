@@ -14,3 +14,16 @@ step 20000/60000  eval_return=  -79.99  best=  -75.33  eps=0.683  loss=0.05238  
 step 30000/60000  eval_return=  -77.54  best=  -75.33  eps=0.525  loss=0.03638  450 steps/s  ETA 1 min
 step 40000/60000  eval_return=  -67.95  best=  -67.95  eps=0.367  loss=0.05402  441 steps/s  ETA 1 min
 step 50000/60000  eval_return=  -70.39  best=  -67.95  eps=0.208  loss=0.05611  433 steps/s  ETA 0 min
+step 60000/60000  eval_return=  -61.64  best=  -61.64  eps=0.050  loss=0.05252  425 steps/s  ETA 0 min
+qmix_beta0.5: WUE 96447  fairness_std 0.0815
+
+=== ablation qmix_beta2: 60000 steps, seed 42 ===
+step 10000/60000  eval_return= -100.33  best= -100.33  eps=0.842  loss=0.06147  462 steps/s  ETA 2 min
+step 20000/60000  eval_return=  -91.54  best=  -91.54  eps=0.683  loss=0.05062  446 steps/s  ETA 1 min
+step 30000/60000  eval_return=  -94.88  best=  -91.54  eps=0.525  loss=0.03774  432 steps/s  ETA 1 min
+step 40000/60000  eval_return=  -82.86  best=  -82.86  eps=0.367  loss=0.04733  417 steps/s  ETA 1 min
+step 50000/60000  eval_return=  -82.89  best=  -82.86  eps=0.208  loss=0.05784  399 steps/s  ETA 0 min
+step 60000/60000  eval_return=  -78.02  best=  -78.02  eps=0.050  loss=0.05909  389 steps/s  ETA 0 min
+qmix_beta2: WUE 105326  fairness_std 0.0625
+
+wrote results/ablation_beta.json

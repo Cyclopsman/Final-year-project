@@ -107,10 +107,13 @@ def main() -> None:
         ]:
             col = f"{m}_mean"
             pick = min if better_low else max
-            best_base = pick(baselines, key=lambda b: df.loc[b, col])
+            # Restrict to feasible baselines: NoShedding's WUE=0 is degenerate
+            # (all unmet load is uncontrolled, not shed).
+            best_base = pick(feasible, key=lambda b: df.loc[b, col])
             lines.append(
-                f"- Best baseline on {label} alone: {LABELS[best_base]} "
-                f"({df.loc[best_base, col]:.3f})."
+                f"- Best *feasible* baseline on {label} alone: {LABELS[best_base]} "
+                f"({df.loc[best_base, col]:.3f}); infeasible baselines "
+                f"(residual deficit > 25 MW) excluded."
             )
         vdn_q = [a for a in ("vdn", "qmix") if a in df.index]
         if len(vdn_q) == 2:

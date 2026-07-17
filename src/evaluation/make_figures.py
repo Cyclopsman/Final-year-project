@@ -62,8 +62,13 @@ def save(fig, name: str) -> None:
 
 
 # ------------------------------------------------------------------ figures
+INFEASIBLE_MW = 100  # mean residual deficit above this = uncontrolled outages
+
+
 def pareto_scatter(df: pd.DataFrame) -> None:
-    g = df.groupby("policy")[["wue_mwh", "jain_index"]].agg(["mean", "std"])
+    g = df.groupby("policy")[["wue_mwh", "jain_index", "mean_residual_deficit_mw"]].agg(
+        ["mean", "std"]
+    )
     fig, ax = plt.subplots(figsize=(6.5, 4.5))
 
     # Target corner: low WUE, high Jain (top-left).
@@ -72,21 +77,48 @@ def pareto_scatter(df: pd.DataFrame) -> None:
     ax.annotate("target corner:\nefficient AND fair", xy=(0.03, 0.955),
                 xycoords="axes fraction", fontsize=8, color="#00543d", style="italic")
 
+    # Custom annotations: rotation baselines share one point; infeasible
+    # policies (uncontrolled residual deficit) are flagged in their label.
+    custom_labels = {
+        "round_robin": "RoundRobin ≡ FairRotation\n(204 MW unmet)",
+        "fair_rotation": None,  # merged into round_robin's label
+        "no_shedding": "NoShedding\n(637 MW unmet)",
+    }
+    offsets = {"no_shedding": (8, -24), "round_robin": (10, -22),
+               "priority": (8, -2), "proportional": (-18, 8), "random": (-30, 8),
+               "vdn": (8, 2), "qmix": (-38, -4), "idqn": (8, 2)}
+
     for policy, row in g.iterrows():
         x, xerr = row[("wue_mwh", "mean")], row[("wue_mwh", "std")]
         y, yerr = row[("jain_index", "mean")], row[("jain_index", "std")]
+        infeasible = row[("mean_residual_deficit_mw", "mean")] > INFEASIBLE_MW
         if policy in AGENT_COLORS:
             ax.errorbar(x, y, xerr=xerr, yerr=yerr, fmt=AGENT_MARKERS[policy],
                         color=AGENT_COLORS[policy], ms=13 if policy == "qmix" else 9,
                         capsize=3, lw=1, zorder=5,
                         markeredgecolor="white", markeredgewidth=0.8)
         else:
+            # Hollow circle = infeasible (leaves uncontrolled deficit).
             ax.errorbar(x, y, xerr=xerr, yerr=yerr, fmt="o", color=BASELINE_GREY,
-                        ms=6, capsize=3, lw=1, alpha=0.85, zorder=4)
-        offset = (6, 6) if policy != "no_shedding" else (6, -12)
-        ax.annotate(LABELS[policy], (x, y), xytext=offset,
-                    textcoords="offset points", fontsize=8)
+                        ms=7, capsize=3, lw=1, alpha=0.9, zorder=4,
+                        markerfacecolor="none" if infeasible else BASELINE_GREY,
+                        markeredgewidth=1.4)
+        label = custom_labels.get(policy, LABELS[policy])
+        if policy == "round_robin":
+            # Crowded corner: anchor the label in open space with a leader arrow.
+            ax.annotate(label, (x, y), xytext=(x + 36000, y - 0.075),
+                        fontsize=8, ha="left", va="top",
+                        arrowprops=dict(arrowstyle="-", color="#999999", lw=0.8))
+        elif label is not None:
+            ax.annotate(label, (x, y), xytext=offsets.get(policy, (6, 6)),
+                        textcoords="offset points", fontsize=8)
 
+    ax.annotate(
+        "hollow circle = infeasible: mean uncontrolled\nresidual deficit "
+        f"> {INFEASIBLE_MW} MW (unmet load not counted in WUE)",
+        xy=(0.28, 0.06), xycoords="axes fraction", fontsize=7.5,
+        color="#444444", style="italic",
+    )
     ax.set_xlim(-xmax * 0.03, xmax)
     ax.set_ylim(0.15, 1.04)
     ax.set_xlabel("Weighted unserved energy (MWh / episode)  →  worse")
@@ -237,8 +269,10 @@ def forecaster_validation(cfg: dict) -> None:
                      bbox=[0.63, 0.04, 0.35, 0.42])
     table.auto_set_font_size(False)
     table.set_fontsize(7)
+    table.set_zorder(6)
     for cell in table.get_celld().values():
         cell.set_edgecolor("#cccccc")
+        cell.set_facecolor("white")  # opaque so plot lines don't bleed through
     save(fig, "forecaster_validation.png")
 
 

@@ -1,0 +1,27 @@
+IDQN: 130000 steps, seed 42, beta=0.5
+step 5000/130000  eval_return=  -76.39  best=  -76.39  eps=0.921  loss=0.02183  361 steps/s  ETA 6 min
+step 10000/130000  eval_return=  -71.68  best=  -71.68  eps=0.842  loss=0.02835  355 steps/s  ETA 6 min
+step 15000/130000  eval_return=  -68.55  best=  -68.55  eps=0.762  loss=0.03063  351 steps/s  ETA 5 min
+step 20000/130000  eval_return=  -71.14  best=  -68.55  eps=0.683  loss=0.10782  350 steps/s  ETA 5 min
+step 25000/130000  eval_return=  -80.36  best=  -68.55  eps=0.604  loss=0.04797  346 steps/s  ETA 5 min
+step 30000/130000  eval_return=  -67.79  best=  -67.79  eps=0.525  loss=0.05061  342 steps/s  ETA 5 min
+step 35000/130000  eval_return=  -64.68  best=  -64.68  eps=0.446  loss=0.11632  341 steps/s  ETA 5 min
+step 40000/130000  eval_return=  -72.64  best=  -64.68  eps=0.367  loss=0.10092  340 steps/s  ETA 4 min
+step 45000/130000  eval_return= -100.02  best=  -64.68  eps=0.288  loss=0.07767  339 steps/s  ETA 4 min
+step 50000/130000  eval_return=  -63.27  best=  -63.27  eps=0.208  loss=0.11049  340 steps/s  ETA 4 min
+step 55000/130000  eval_return=  -68.19  best=  -63.27  eps=0.129  loss=0.05350  340 steps/s  ETA 4 min
+step 60000/130000  eval_return=  -83.95  best=  -63.27  eps=0.050  loss=0.06454  340 steps/s  ETA 3 min
+step 65000/130000  eval_return=  -75.24  best=  -63.27  eps=0.050  loss=0.05764  340 steps/s  ETA 3 min
+step 70000/130000  eval_return=  -79.37  best=  -63.27  eps=0.050  loss=0.05684  340 steps/s  ETA 3 min
+step 75000/130000  eval_return=  -78.84  best=  -63.27  eps=0.050  loss=0.05433  340 steps/s  ETA 3 min
+step 80000/130000  eval_return=  -61.02  best=  -61.02  eps=0.050  loss=0.06599  341 steps/s  ETA 2 min
+step 85000/130000  eval_return=  -71.72  best=  -61.02  eps=0.050  loss=0.06745  341 steps/s  ETA 2 min
+step 90000/130000  eval_return=  -61.80  best=  -61.02  eps=0.050  loss=0.05377  340 steps/s  ETA 2 min
+step 95000/130000  eval_return=  -73.30  best=  -61.02  eps=0.050  loss=0.06633  341 steps/s  ETA 2 min
+step 100000/130000  eval_return=  -68.97  best=  -61.02  eps=0.050  loss=0.12217  341 steps/s  ETA 1 min
+step 105000/130000  eval_return=  -61.96  best=  -61.02  eps=0.050  loss=0.05464  341 steps/s  ETA 1 min
+step 110000/130000  eval_return=  -67.73  best=  -61.02  eps=0.050  loss=0.04887  341 steps/s  ETA 1 min
+step 115000/130000  eval_return=  -78.41  best=  -61.02  eps=0.050  loss=0.07314  341 steps/s  ETA 1 min
+step 120000/130000  eval_return=  -71.03  best=  -61.02  eps=0.050  loss=0.06525  341 steps/s  ETA 0 min
+step 125000/130000  eval_return=  -71.33  best=  -61.02  eps=0.050  loss=0.06188  341 steps/s  ETA 0 min
+step 130000/130000  eval_return=  -81.64  best=  -61.02  eps=0.050  loss=0.09430  341 steps/s  ETA 0 min

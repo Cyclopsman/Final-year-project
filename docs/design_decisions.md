@@ -202,3 +202,16 @@ residual deficit is now simply the third reported axis, the Pareto claim is
 stated as occupation of the (low-WUE, high-Jain, low-residual) region with
 each baseline's own concession spelled out, and the pareto figure's hollow-
 marker flag (>100 MW) applies uniformly to baselines AND agents.
+
+## 2026-07-24 — (o) Known limitation: one training seed, many eval seeds
+
+All agents are trained with a single seed (42, per TASKS/SPEC) and evaluated
+over 4 seeds × 5 episodes. Hard Rule 7's mean ± std therefore captures
+*evaluation* variance, not *training-run* variance; the VDN-vs-QMIX ordering
+(−51.2 vs −50.0, overlapping stds) should be described as "under this
+training seed" in the report. Retraining across 3+ seeds was considered and
+deliberately excluded: it triples every training cost for a comparison that
+is already framed as task-dependent (Papoudakis et al. 2021), and the core
+occupation claim does not rest on the VDN/QMIX ordering. State this in the
+report's limitations section — pre-empting the question is stronger than
+being asked it.

@@ -25,7 +25,10 @@ from src.agents.qmix_agent import QMixAgent, QMixConfig
 from src.agents.vdn_agent import VDNAgent, VDNConfig
 from src.environment.grid_env import GridEnv, load_config
 
-EVAL_SEEDS = (0, 1, 2)
+# 4 seeds x 5 episodes = 20 eval episodes per policy. One protocol for ALL
+# nine policies — baselines and agents must never be scored on different
+# episode sets (that would be an uncontrolled comparison).
+EVAL_SEEDS = (0, 1, 2, 3)
 EPISODES_PER_SEED = 5
 
 METRICS = [
@@ -144,9 +147,12 @@ def main() -> None:
     policies.update(load_agent_policies(cfg, Path(args.models)))
 
     all_rows: list[dict] = []
+    agent_rows: dict[str, list[dict]] = {}
     for name, policy in policies.items():
         rows = evaluate_policy(cfg, policy, name)
         all_rows.extend(rows)
+        if name in ("idqn", "vdn", "qmix"):
+            agent_rows[name] = rows
         mean_ret = np.mean([r["return"] for r in rows])
         print(f"{name:14s} mean return {mean_ret:8.2f} over {len(rows)} episodes", flush=True)
 
@@ -165,7 +171,21 @@ def main() -> None:
     with open(out_dir / "eval_raw.json", "w") as f:
         json.dump({"stamp": stamp, "episodes": all_rows}, f, indent=1, default=float)
 
-    print(f"\nwrote {out_dir}/all_policies_metrics.csv and eval_raw.json  [{stamp}]")
+    # Per-agent eval JSONs (idqn_eval.json / vdn_eval.json / qmix_eval.json):
+    # same episodes as the raw dump, split out with per-metric mean/std so a
+    # single agent's result is consumable without re-parsing the full table.
+    for name, rows in agent_rows.items():
+        summary_stats = {
+            m: {"mean": float(np.mean([r[m] for r in rows])),
+                "std": float(np.std([r[m] for r in rows]))}
+            for m in METRICS
+        }
+        with open(out_dir / f"{name}_eval.json", "w") as f:
+            json.dump({"policy": name, "stamp": stamp, "summary": summary_stats,
+                       "episodes": rows}, f, indent=1, default=float)
+
+    print(f"\nwrote {out_dir}/all_policies_metrics.csv, eval_raw.json, "
+          f"{{{', '.join(sorted(agent_rows))}}}_eval.json  [{stamp}]")
 
 
 if __name__ == "__main__":

@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 
 from src.agents.independent_dqn import IDQNAgent, IDQNConfig
+from src.agents.dqn_agent import set_global_seeds
 from src.environment.grid_env import load_config
 from src.training.train_utils import apply_beta_override, run_training
 
@@ -14,12 +15,13 @@ def main() -> None:
     p.add_argument("--seed", type=int, default=None)
     p.add_argument("--beta", type=float, default=None, help="β-ablation override")
     p.add_argument("--out", default="models/saved_models/idqn.pt")
-    p.add_argument("--log", default="results/train_log_idqn.csv")
+    p.add_argument("--log", default="results/logs/idqn_train.csv")
     args = p.parse_args()
 
     cfg = apply_beta_override(load_config(), args.beta)
     steps = args.steps or cfg["training"]["idqn_steps"]
     seed = args.seed if args.seed is not None else cfg["training"]["seed"]
+    set_global_seeds(seed)  # seed BEFORE net init so checkpoints are reproducible
     agent = IDQNAgent(IDQNConfig.from_yaml(cfg), seed=seed)
     print(f"IDQN: {steps} steps, seed {seed}, beta={cfg['reward']['beta_fairness']}")
     run_training(agent, cfg, steps, seed, args.out, args.log)

@@ -14,6 +14,8 @@ import csv
 import time
 from pathlib import Path
 
+import numpy as np
+
 from src.agents.dqn_agent import set_global_seeds
 from src.environment.grid_env import GridEnv
 
@@ -52,7 +54,8 @@ def run_training(
     log_f = open(log_path, "w", newline="")
     writer = csv.writer(log_f)
     writer.writerow(
-        ["step", "episode", "episode_return", "episode_wue", "loss", "epsilon", "eval_return"]
+        ["step", "episode", "episode_return", "episode_wue", "episode_fair_std",
+         "episode_worst_outage_h", "loss", "epsilon", "eval_return"]
     )
 
     obs, _ = env.reset(seed=seed)
@@ -66,19 +69,36 @@ def run_training(
     for step in range(1, total_steps + 1):
         actions = agent.act(obs)
         next_obs, reward, _, truncated, info = env.step(actions)
+        if step == 1:
+            # Interface-contract assertion (t8, Hard Rule 3): fail loudly on
+            # the first step rather than training 100k+ steps on zeros.
+            for key in ("weighted_unserved_energy", "zone_shed_fraction"):
+                assert key in info, (
+                    f"env info dict is missing '{key}' — the t8 interface "
+                    f"contract is broken; training would silently corrupt. "
+                    f"Available keys: {sorted(info)}"
+                )
         agent.observe(obs, actions, reward, next_obs, truncated)
         obs = next_obs
         ep_return += reward
-        # .get() mirrors how a mis-named key would fail: silently as zero.
-        ep_wue += info.get("weighted_unserved_energy", 0.0)
+        # Direct indexing (not .get()): a renamed key must raise KeyError,
+        # never silently contribute zeros to the training metrics.
+        ep_wue += info["weighted_unserved_energy"]
 
         if agent.ready():
             last_loss = agent.train_step()
 
         if truncated:
             episode += 1
+            # Episode-level fairness diagnostics from cumulative outage hours:
+            # sigma_fair = std over zones of outage rate (share of the week
+            # each zone spent shed), worst = max zone outage hours.
+            cum = info["cumulative_outage_hours"]
+            fair_std = float(np.std(np.asarray(cum) / env.episode_hours))
+            worst_h = float(np.max(cum))
             writer.writerow(
                 [step, episode, f"{ep_return:.4f}", f"{ep_wue:.2f}",
+                 f"{fair_std:.5f}", f"{worst_h:.2f}",
                  f"{last_loss:.6f}", f"{agent.epsilon():.4f}", ""]
             )
             # Silent-zero bug guard (t8 contract): a full episode at supply
@@ -94,7 +114,7 @@ def run_training(
 
         if step % eval_every == 0 or step == total_steps:
             eval_ret = evaluate_policy(eval_env, agent, eval_episodes, seed_base=10_000)
-            writer.writerow([step, episode, "", "", "", "", f"{eval_ret:.4f}"])
+            writer.writerow([step, episode, "", "", "", "", "", "", f"{eval_ret:.4f}"])
             log_f.flush()
             if eval_ret >= best_eval:
                 best_eval = eval_ret

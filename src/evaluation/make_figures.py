@@ -91,14 +91,19 @@ def pareto_scatter(df: pd.DataFrame) -> None:
     for policy, row in g.iterrows():
         x, xerr = row[("wue_mwh", "mean")], row[("wue_mwh", "std")]
         y, yerr = row[("jain_index", "mean")], row[("jain_index", "std")]
+        # Hollow marker = leaves > INFEASIBLE_MW mean uncontrolled residual
+        # deficit. Applied UNIFORMLY — agents included — so the flag is a
+        # measurement, not a filter that only disqualifies baselines.
         infeasible = row[("mean_residual_deficit_mw", "mean")] > INFEASIBLE_MW
         if policy in AGENT_COLORS:
+            c = AGENT_COLORS[policy]
             ax.errorbar(x, y, xerr=xerr, yerr=yerr, fmt=AGENT_MARKERS[policy],
-                        color=AGENT_COLORS[policy], ms=13 if policy == "qmix" else 9,
+                        color=c, ms=13 if policy == "qmix" else 9,
                         capsize=3, lw=1, zorder=5,
-                        markeredgecolor="white", markeredgewidth=0.8)
+                        markerfacecolor="none" if infeasible else c,
+                        markeredgecolor=c if infeasible else "white",
+                        markeredgewidth=1.4 if infeasible else 0.8)
         else:
-            # Hollow circle = infeasible (leaves uncontrolled deficit).
             ax.errorbar(x, y, xerr=xerr, yerr=yerr, fmt="o", color=BASELINE_GREY,
                         ms=7, capsize=3, lw=1, alpha=0.9, zorder=4,
                         markerfacecolor="none" if infeasible else BASELINE_GREY,
@@ -114,8 +119,8 @@ def pareto_scatter(df: pd.DataFrame) -> None:
                         textcoords="offset points", fontsize=8)
 
     ax.annotate(
-        "hollow circle = infeasible: mean uncontrolled\nresidual deficit "
-        f"> {INFEASIBLE_MW} MW (unmet load not counted in WUE)",
+        "hollow marker (any policy) = mean uncontrolled residual deficit\n"
+        f"> {INFEASIBLE_MW} MW — unmet load that never enters WUE",
         xy=(0.28, 0.06), xycoords="axes fraction", fontsize=7.5,
         color="#444444", style="italic",
     )
@@ -179,7 +184,7 @@ def zone_outage(df: pd.DataFrame, cfg: dict) -> None:
 def training_curves() -> None:
     fig, ax = plt.subplots(figsize=(6.5, 4))
     for name in ["idqn", "vdn", "qmix"]:
-        path = RESULTS / f"train_log_{name}.csv"
+        path = RESULTS / "logs" / f"{name}_train.csv"
         if not path.exists():
             continue
         log = pd.read_csv(path)

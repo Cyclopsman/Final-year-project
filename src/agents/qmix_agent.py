@@ -188,3 +188,69 @@ class QMixAgent:
             tgt.load_state_dict(sd)
         self.mixer.load_state_dict(ckpt["mixer"])
         self.target_mixer.load_state_dict(ckpt["mixer"])
+
+
+def verify_mixer_consistency(
+    agent: QMixAgent, env, n_states: int = 64, igm_states: int = 8, tol: float = 1e-5
+) -> dict:
+    """Empirical check of QMIX's two structural guarantees on REAL env states.
+
+    (1) Monotonicity: ∂Q_tot/∂Q_z ≥ 0 for every agent, verified by autograd on
+        states collected from an actual rollout (not synthetic tensors, so the
+        check covers the observation ranges the mixer will really see).
+    (2) IGM (Individual-Global-Max): per-agent greedy argmax equals the argmax
+        of Q_tot over ALL 5^5 = 3125 joint actions — enumerable exactly here,
+        which is precisely why the 5-zone abstraction keeps this check cheap.
+
+    Monotonicity implies IGM up to ties, but (2) is checked independently so a
+    mixer bug (e.g. a missing abs()) is caught by two different instruments.
+    """
+    # Collect real observations via a short random rollout.
+    obs, _ = env.reset(seed=12345)
+    states, obs_list = [], []
+    rng = np.random.default_rng(0)
+    for _ in range(n_states):
+        obs_list.append(obs.copy())
+        states.append(np.asarray(obs, dtype=np.float32).reshape(-1))
+        obs, _, _, truncated, _ = env.step(rng.integers(0, agent.cfg.n_actions, size=agent.cfg.n_agents))
+        if truncated:
+            obs, _ = env.reset(seed=int(rng.integers(1 << 30)))
+    state_t = torch.from_numpy(np.stack(states))
+
+    # (1) Monotonicity via autograd: gradient of sum(Q_tot) wrt agent_qs.
+    qs = torch.randn(n_states, agent.cfg.n_agents, requires_grad=True)
+    q_tot = agent.mixer(qs, state_t)
+    (grad,) = torch.autograd.grad(q_tot.sum(), qs)
+    min_grad = float(grad.min())
+    monotone = min_grad >= -tol
+
+    # (2) IGM on a subset of states: enumerate all joint actions.
+    n_a, n_z = agent.cfg.n_actions, agent.cfg.n_agents
+    joint = np.stack(np.meshgrid(*[np.arange(n_a)] * n_z, indexing="ij"), -1).reshape(-1, n_z)
+    igm_ok = 0
+    with torch.no_grad():
+        for i in range(min(igm_states, n_states)):
+            o = torch.from_numpy(obs_list[i]).float()
+            q_matrix = torch.stack([agent.nets[z](o[z]) for z in range(n_z)])  # (5 zones, 5 actions)
+            greedy = q_matrix.argmax(dim=1).numpy()
+            # per_joint_qs[j, z] = Q_z(o_z, joint[j, z]) → (3125, 5)
+            per_joint_qs = q_matrix[
+                torch.arange(n_z).unsqueeze(0), torch.from_numpy(joint)
+            ].float()
+            q_tots = agent.mixer(per_joint_qs, state_t[i].expand(len(joint), -1))
+            best_joint = joint[int(q_tots.argmax())]
+            # Accept value ties: greedy action must achieve the max Q_tot.
+            greedy_q_tot = agent.mixer(
+                q_matrix[np.arange(n_z), greedy].unsqueeze(0).float(), state_t[i : i + 1]
+            )
+            if np.array_equal(best_joint, greedy) or float(q_tots.max() - greedy_q_tot) <= tol:
+                igm_ok += 1
+    result = {
+        "monotone": monotone,
+        "min_dQtot_dQz": min_grad,
+        "igm_pass": igm_ok,
+        "igm_total": min(igm_states, n_states),
+    }
+    if not monotone or igm_ok < result["igm_total"]:
+        raise AssertionError(f"QMIX mixer consistency check FAILED: {result}")
+    return result

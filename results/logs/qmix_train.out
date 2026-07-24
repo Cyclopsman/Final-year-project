@@ -3,3 +3,5 @@ QMIX: 200000 steps, seed 42, beta=0.5
 step 5000/200000  eval_return=  -77.56  best=  -77.56  eps=0.921  loss=0.02351  309 steps/s  ETA 11 min
 step 10000/200000  eval_return=  -75.61  best=  -75.61  eps=0.842  loss=0.05099  288 steps/s  ETA 11 min
 step 15000/200000  eval_return=  -78.54  best=  -75.61  eps=0.762  loss=0.03414  283 steps/s  ETA 11 min
+step 20000/200000  eval_return=  -79.24  best=  -75.61  eps=0.683  loss=0.03422  286 steps/s  ETA 10 min
+step 25000/200000  eval_return=  -67.99  best=  -67.99  eps=0.604  loss=0.04942  281 steps/s  ETA 10 min

@@ -3,3 +3,5 @@ step 5000/150000  eval_return=  -79.36  best=  -79.36  eps=0.921  loss=0.02543  
 step 10000/150000  eval_return=  -75.11  best=  -75.11  eps=0.842  loss=0.05627  375 steps/s  ETA 6 min
 step 15000/150000  eval_return=  -76.65  best=  -75.11  eps=0.762  loss=0.03886  352 steps/s  ETA 6 min
 step 20000/150000  eval_return=  -77.42  best=  -75.11  eps=0.683  loss=0.04077  352 steps/s  ETA 6 min
+step 25000/150000  eval_return=  -67.95  best=  -67.95  eps=0.604  loss=0.04381  352 steps/s  ETA 6 min
+step 30000/150000  eval_return=  -74.36  best=  -67.95  eps=0.525  loss=0.05704  349 steps/s  ETA 6 min

@@ -62,6 +62,19 @@ python -m src.evaluation.make_figures        # → results/figures/*.png (300 dp
 python -m src.evaluation.make_report_numbers # → results/report_numbers.md
 ```
 
+## Episode playback demo (for presentations)
+
+```bash
+python -m src.evaluation.demo --policy qmix        # PNG + hour-by-hour GIF
+python -m src.evaluation.demo --policy priority --no-gif
+```
+
+Renders one 168-hour week (demand/supply/served, per-zone shed timeline,
+cumulative outage ledger) to `results/figures/demo_<policy>.{png,gif}`.
+Same `--seed` ⇒ same week for every policy, so runs are directly
+comparable side by side. Static matplotlib only; single-episode traces are
+illustrative, never report metrics.
+
 ## Repository layout
 
 ```

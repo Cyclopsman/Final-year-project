@@ -1,0 +1,397 @@
+{
+ "policy": "qmix",
+ "stamp": {
+  "git_commit": "b2bb661",
+  "config_hash": "ecf46c850ae8",
+  "supply_mean_mw": 2000,
+  "protocol": "5 episodes x 4 seeds, eps=0"
+ },
+ "summary": {
+  "wue_mwh": {
+   "mean": 85100.0536588845,
+   "std": 25336.79711431113
+  },
+  "fairness_std": {
+   "mean": 0.04837109740143647,
+   "std": 0.0039831049391469
+  },
+  "jain_index": {
+   "mean": 0.9552756235894299,
+   "std": 0.017642283933854884
+  },
+  "worst_zone_outage_h": {
+   "mean": 53.125,
+   "std": 7.988468251173062
+  },
+  "mean_residual_deficit_mw": {
+   "mean": 58.80675191101422,
+   "std": 16.113464499914134
+  },
+  "return": {
+   "mean": -49.987161928495766,
+   "std": 8.653339570865032
+  }
+ },
+ "episodes": [
+  {
+   "wue_mwh": 92198.29916842034,
+   "fairness_std": 0.04416811061687892,
+   "jain_index": 0.973182670530648,
+   "worst_zone_outage_h": 57.25,
+   "mean_residual_deficit_mw": 70.33188395414486,
+   "return": -55.332702022671576,
+   "zone_outage_hours": [
+    34.25,
+    45.75,
+    44.25,
+    42.0,
+    57.25
+   ],
+   "policy": "qmix",
+   "seed": 0,
+   "episode": 0
+  },
+  {
+   "wue_mwh": 68509.80747550976,
+   "fairness_std": 0.05131145726110791,
+   "jain_index": 0.9385867768595041,
+   "worst_zone_outage_h": 47.5,
+   "mean_residual_deficit_mw": 51.14808515072386,
+   "return": -41.50714799001985,
+   "zone_outage_hours": [
+    22.75,
+    31.25,
+    38.75,
+    28.25,
+    47.5
+   ],
+   "policy": "qmix",
+   "seed": 0,
+   "episode": 1
+  },
+  {
+   "wue_mwh": 87324.82380479839,
+   "fairness_std": 0.054619379747402205,
+   "jain_index": 0.9559568722579296,
+   "worst_zone_outage_h": 57.5,
+   "mean_residual_deficit_mw": 69.48485520486184,
+   "return": -53.51867605438559,
+   "zone_outage_hours": [
+    30.25,
+    45.0,
+    44.5,
+    36.5,
+    57.5
+   ],
+   "policy": "qmix",
+   "seed": 0,
+   "episode": 2
+  },
+  {
+   "wue_mwh": 70105.05274337002,
+   "fairness_std": 0.04703887642888178,
+   "jain_index": 0.9501476810090205,
+   "worst_zone_outage_h": 45.75,
+   "mean_residual_deficit_mw": 64.48649659230739,
+   "return": -45.13309297745615,
+   "zone_outage_hours": [
+    22.25,
+    35.75,
+    38.5,
+    30.25,
+    45.75
+   ],
+   "policy": "qmix",
+   "seed": 0,
+   "episode": 3
+  },
+  {
+   "wue_mwh": 72566.25928827412,
+   "fairness_std": 0.05179426585112188,
+   "jain_index": 0.9437747723496487,
+   "worst_zone_outage_h": 49.25,
+   "mean_residual_deficit_mw": 59.1451856309081,
+   "return": -44.977155882031184,
+   "zone_outage_hours": [
+    23.5,
+    35.5,
+    39.75,
+    30.25,
+    49.25
+   ],
+   "policy": "qmix",
+   "seed": 0,
+   "episode": 4
+  },
+  {
+   "wue_mwh": 93282.70811079137,
+   "fairness_std": 0.04643238690061045,
+   "jain_index": 0.9714466707334241,
+   "worst_zone_outage_h": 58.25,
+   "mean_residual_deficit_mw": 75.55499458471085,
+   "return": -57.17249758392261,
+   "zone_outage_hours": [
+    33.75,
+    46.25,
+    45.5,
+    43.75,
+    58.25
+   ],
+   "policy": "qmix",
+   "seed": 1,
+   "episode": 0
+  },
+  {
+   "wue_mwh": 91468.71438244829,
+   "fairness_std": 0.04341567268764397,
+   "jain_index": 0.9738375666969928,
+   "worst_zone_outage_h": 55.75,
+   "mean_residual_deficit_mw": 71.23841219866492,
+   "return": -54.95713738056951,
+   "zone_outage_hours": [
+    33.25,
+    46.75,
+    45.0,
+    41.75,
+    55.75
+   ],
+   "policy": "qmix",
+   "seed": 1,
+   "episode": 1
+  },
+  {
+   "wue_mwh": 69566.67363236797,
+   "fairness_std": 0.04917833944222582,
+   "jain_index": 0.9433032933261348,
+   "worst_zone_outage_h": 48.0,
+   "mean_residual_deficit_mw": 54.492070672886975,
+   "return": -42.557912965205375,
+   "zone_outage_hours": [
+    24.75,
+    30.75,
+    37.25,
+    27.75,
+    48.0
+   ],
+   "policy": "qmix",
+   "seed": 1,
+   "episode": 2
+  },
+  {
+   "wue_mwh": 73788.71616294503,
+   "fairness_std": 0.05074382942279579,
+   "jain_index": 0.947592821280163,
+   "worst_zone_outage_h": 48.25,
+   "mean_residual_deficit_mw": 60.66924796953593,
+   "return": -45.90346650440642,
+   "zone_outage_hours": [
+    23.5,
+    37.5,
+    41.25,
+    30.75,
+    48.25
+   ],
+   "policy": "qmix",
+   "seed": 1,
+   "episode": 3
+  },
+  {
+   "wue_mwh": 72067.20853576517,
+   "fairness_std": 0.04786025220886952,
+   "jain_index": 0.9498701197999457,
+   "worst_zone_outage_h": 48.75,
+   "mean_residual_deficit_mw": 53.88145432414203,
+   "return": -43.669302867134,
+   "zone_outage_hours": [
+    26.25,
+    31.25,
+    39.0,
+    29.75,
+    48.75
+   ],
+   "policy": "qmix",
+   "seed": 1,
+   "episode": 4
+  },
+  {
+   "wue_mwh": 96945.7638522674,
+   "fairness_std": 0.041192024468561794,
+   "jain_index": 0.9786918798665184,
+   "worst_zone_outage_h": 58.25,
+   "mean_residual_deficit_mw": 71.65312884211839,
+   "return": -57.38268066344569,
+   "zone_outage_hours": [
+    36.75,
+    48.25,
+    46.75,
+    44.5,
+    58.25
+   ],
+   "policy": "qmix",
+   "seed": 2,
+   "episode": 0
+  },
+  {
+   "wue_mwh": 151599.21601446567,
+   "fairness_std": 0.04231636330280054,
+   "jain_index": 0.9871662778333254,
+   "worst_zone_outage_h": 71.5,
+   "mean_residual_deficit_mw": 17.72521472492977,
+   "return": -68.67408143925594,
+   "zone_outage_hours": [
+    71.5,
+    58.5,
+    51.0,
+    63.5,
+    67.25
+   ],
+   "policy": "qmix",
+   "seed": 2,
+   "episode": 1
+  },
+  {
+   "wue_mwh": 89694.27907537612,
+   "fairness_std": 0.0488458053307825,
+   "jain_index": 0.9658633952842922,
+   "worst_zone_outage_h": 56.5,
+   "mean_residual_deficit_mw": 82.28762726474895,
+   "return": -57.11847916056106,
+   "zone_outage_hours": [
+    31.5,
+    46.0,
+    44.75,
+    39.5,
+    56.5
+   ],
+   "policy": "qmix",
+   "seed": 2,
+   "episode": 2
+  },
+  {
+   "wue_mwh": 65536.49354399282,
+   "fairness_std": 0.051785714285714275,
+   "jain_index": 0.9327469012395042,
+   "worst_zone_outage_h": 45.75,
+   "mean_residual_deficit_mw": 65.6074100108054,
+   "return": -43.102215578857574,
+   "zone_outage_hours": [
+    20.0,
+    31.25,
+    37.25,
+    27.75,
+    45.75
+   ],
+   "policy": "qmix",
+   "seed": 2,
+   "episode": 3
+  },
+  {
+   "wue_mwh": 69010.02442527389,
+   "fairness_std": 0.052729831127199214,
+   "jain_index": 0.9355461330759833,
+   "worst_zone_outage_h": 48.25,
+   "mean_residual_deficit_mw": 60.954742878988995,
+   "return": -43.9881561825961,
+   "zone_outage_hours": [
+    23.75,
+    30.75,
+    39.0,
+    27.0,
+    48.25
+   ],
+   "policy": "qmix",
+   "seed": 2,
+   "episode": 4
+  },
+  {
+   "wue_mwh": 68249.13085714403,
+   "fairness_std": 0.04891285519807772,
+   "jain_index": 0.9440363836025154,
+   "worst_zone_outage_h": 46.5,
+   "mean_residual_deficit_mw": 62.356911361781826,
+   "return": -43.912675722840596,
+   "zone_outage_hours": [
+    22.75,
+    31.25,
+    39.0,
+    29.25,
+    46.5
+   ],
+   "policy": "qmix",
+   "seed": 3,
+   "episode": 0
+  },
+  {
+   "wue_mwh": 70442.49421187796,
+   "fairness_std": 0.04990424504457899,
+   "jain_index": 0.9429973238180196,
+   "worst_zone_outage_h": 47.75,
+   "mean_residual_deficit_mw": 58.952860911305365,
+   "return": -43.56785001746457,
+   "zone_outage_hours": [
+    24.25,
+    32.75,
+    38.5,
+    27.25,
+    47.75
+   ],
+   "policy": "qmix",
+   "seed": 3,
+   "episode": 1
+  },
+  {
+   "wue_mwh": 73714.89188963846,
+   "fairness_std": 0.04572691727766942,
+   "jain_index": 0.955625734292025,
+   "worst_zone_outage_h": 48.75,
+   "mean_residual_deficit_mw": 59.12604595363132,
+   "return": -44.96756058194635,
+   "zone_outage_hours": [
+    26.5,
+    33.75,
+    38.75,
+    30.5,
+    48.75
+   ],
+   "policy": "qmix",
+   "seed": 3,
+   "episode": 2
+  },
+  {
+   "wue_mwh": 158095.0636244029,
+   "fairness_std": 0.04375506125567108,
+   "jain_index": 0.9872950747400411,
+   "worst_zone_outage_h": 74.75,
+   "mean_residual_deficit_mw": 15.813021728913517,
+   "return": -70.82094747183912,
+   "zone_outage_hours": [
+    74.75,
+    61.0,
+    53.0,
+    66.75,
+    68.5
+   ],
+   "policy": "qmix",
+   "seed": 3,
+   "episode": 3
+  },
+  {
+   "wue_mwh": 67835.45237856009,
+   "fairness_std": 0.05569056017013558,
+   "jain_index": 0.9278441231929604,
+   "worst_zone_outage_h": 48.25,
+   "mean_residual_deficit_mw": 51.225388260173986,
+   "return": -41.47949952330603,
+   "zone_outage_hours": [
+    21.5,
+    31.5,
+    39.25,
+    27.25,
+    48.25
+   ],
+   "policy": "qmix",
+   "seed": 3,
+   "episode": 4
+  }
+ ]
+}

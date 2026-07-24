@@ -1,0 +1,397 @@
+{
+ "policy": "vdn",
+ "stamp": {
+  "git_commit": "b2bb661",
+  "config_hash": "ecf46c850ae8",
+  "supply_mean_mw": 2000,
+  "protocol": "5 episodes x 4 seeds, eps=0"
+ },
+ "summary": {
+  "wue_mwh": {
+   "mean": 85467.23603148159,
+   "std": 16181.604682707917
+  },
+  "fairness_std": {
+   "mean": 0.08473065113848668,
+   "std": 0.00736607988902581
+  },
+  "jain_index": {
+   "mean": 0.9014316417955588,
+   "std": 0.023428959353338875
+  },
+  "worst_zone_outage_h": {
+   "mean": 67.8375,
+   "std": 3.530470046608525
+  },
+  "mean_residual_deficit_mw": {
+   "mean": 49.18061791855197,
+   "std": 21.02384792120081
+  },
+  "return": {
+   "mean": -51.23321983512301,
+   "std": 9.700994533455695
+  }
+ },
+ "episodes": [
+  {
+   "wue_mwh": 90386.29417256091,
+   "fairness_std": 0.08906222028241073,
+   "jain_index": 0.909732372360264,
+   "worst_zone_outage_h": 71.25,
+   "mean_residual_deficit_mw": 70.05081679256125,
+   "return": -57.59232966917531,
+   "zone_outage_hours": [
+    29.25,
+    49.5,
+    34.0,
+    53.5,
+    71.25
+   ],
+   "policy": "vdn",
+   "seed": 0,
+   "episode": 0
+  },
+  {
+   "wue_mwh": 74286.8561482773,
+   "fairness_std": 0.09040763380065373,
+   "jain_index": 0.8734350139902343,
+   "worst_zone_outage_h": 66.25,
+   "mean_residual_deficit_mw": 26.718365263496697,
+   "return": -42.64516355523084,
+   "zone_outage_hours": [
+    23.25,
+    37.75,
+    27.5,
+    44.75,
+    66.25
+   ],
+   "policy": "vdn",
+   "seed": 0,
+   "episode": 1
+  },
+  {
+   "wue_mwh": 87276.64451083537,
+   "fairness_std": 0.08699746360365562,
+   "jain_index": 0.9079414331426355,
+   "worst_zone_outage_h": 69.5,
+   "mean_residual_deficit_mw": 65.285689409369,
+   "return": -55.52274771073981,
+   "zone_outage_hours": [
+    28.25,
+    47.25,
+    33.0,
+    51.5,
+    69.5
+   ],
+   "policy": "vdn",
+   "seed": 0,
+   "episode": 2
+  },
+  {
+   "wue_mwh": 75984.40524062917,
+   "fairness_std": 0.08089217824446183,
+   "jain_index": 0.8951115275943832,
+   "worst_zone_outage_h": 63.5,
+   "mean_residual_deficit_mw": 41.18961256157534,
+   "return": -45.42055440012237,
+   "zone_outage_hours": [
+    24.75,
+    39.25,
+    28.5,
+    42.5,
+    63.5
+   ],
+   "policy": "vdn",
+   "seed": 0,
+   "episode": 3
+  },
+  {
+   "wue_mwh": 78034.18131477202,
+   "fairness_std": 0.08715411877531168,
+   "jain_index": 0.8895371080038387,
+   "worst_zone_outage_h": 65.75,
+   "mean_residual_deficit_mw": 31.340456765679296,
+   "return": -44.512729140115695,
+   "zone_outage_hours": [
+    24.25,
+    41.0,
+    29.25,
+    47.5,
+    65.75
+   ],
+   "policy": "vdn",
+   "seed": 0,
+   "episode": 4
+  },
+  {
+   "wue_mwh": 89597.41938111026,
+   "fairness_std": 0.09149353625732665,
+   "jain_index": 0.9048479173588667,
+   "worst_zone_outage_h": 71.25,
+   "mean_residual_deficit_mw": 85.65059531724853,
+   "return": -61.291647967920554,
+   "zone_outage_hours": [
+    28.0,
+    49.0,
+    34.0,
+    54.75,
+    71.25
+   ],
+   "policy": "vdn",
+   "seed": 1,
+   "episode": 0
+  },
+  {
+   "wue_mwh": 88271.58858178635,
+   "fairness_std": 0.09013681651583871,
+   "jain_index": 0.9043031450674763,
+   "worst_zone_outage_h": 71.5,
+   "mean_residual_deficit_mw": 68.81917714475375,
+   "return": -57.04172590445777,
+   "zone_outage_hours": [
+    28.5,
+    47.5,
+    33.5,
+    51.75,
+    71.5
+   ],
+   "policy": "vdn",
+   "seed": 1,
+   "episode": 1
+  },
+  {
+   "wue_mwh": 75532.33174880726,
+   "fairness_std": 0.0849805316507092,
+   "jain_index": 0.8882469450555476,
+   "worst_zone_outage_h": 64.75,
+   "mean_residual_deficit_mw": 32.95594354791873,
+   "return": -43.781629873761176,
+   "zone_outage_hours": [
+    23.25,
+    39.75,
+    29.5,
+    44.0,
+    64.75
+   ],
+   "policy": "vdn",
+   "seed": 1,
+   "episode": 2
+  },
+  {
+   "wue_mwh": 78363.05259385468,
+   "fairness_std": 0.08569361523246628,
+   "jain_index": 0.8946347663076287,
+   "worst_zone_outage_h": 66.0,
+   "mean_residual_deficit_mw": 37.25959718832344,
+   "return": -46.24474196432137,
+   "zone_outage_hours": [
+    25.0,
+    40.25,
+    30.5,
+    48.0,
+    66.0
+   ],
+   "policy": "vdn",
+   "seed": 1,
+   "episode": 3
+  },
+  {
+   "wue_mwh": 77913.16853704087,
+   "fairness_std": 0.08924900038821043,
+   "jain_index": 0.8852713969495353,
+   "worst_zone_outage_h": 66.75,
+   "mean_residual_deficit_mw": 28.57298926828447,
+   "return": -44.1823296875373,
+   "zone_outage_hours": [
+    24.0,
+    41.25,
+    29.25,
+    47.0,
+    66.75
+   ],
+   "policy": "vdn",
+   "seed": 1,
+   "episode": 4
+  },
+  {
+   "wue_mwh": 91775.65265763413,
+   "fairness_std": 0.08346397073247139,
+   "jain_index": 0.921674351900726,
+   "worst_zone_outage_h": 70.5,
+   "mean_residual_deficit_mw": 83.64973908944607,
+   "return": -61.27786857842539,
+   "zone_outage_hours": [
+    30.75,
+    49.5,
+    36.0,
+    53.75,
+    70.5
+   ],
+   "policy": "vdn",
+   "seed": 2,
+   "episode": 0
+  },
+  {
+   "wue_mwh": 128779.40068417108,
+   "fairness_std": 0.06944543650085044,
+   "jain_index": 0.958895494781345,
+   "worst_zone_outage_h": 75.5,
+   "mean_residual_deficit_mw": 80.7178065411984,
+   "return": -73.86120945620101,
+   "zone_outage_hours": [
+    49.5,
+    58.75,
+    40.25,
+    57.75,
+    75.5
+   ],
+   "policy": "vdn",
+   "seed": 2,
+   "episode": 1
+  },
+  {
+   "wue_mwh": 88642.81349641703,
+   "fairness_std": 0.09589893495562703,
+   "jain_index": 0.8964360168773005,
+   "worst_zone_outage_h": 73.5,
+   "mean_residual_deficit_mw": 70.81487866611344,
+   "return": -57.60679407898615,
+   "zone_outage_hours": [
+    28.0,
+    47.75,
+    33.5,
+    54.25,
+    73.5
+   ],
+   "policy": "vdn",
+   "seed": 2,
+   "episode": 2
+  },
+  {
+   "wue_mwh": 73986.0979230394,
+   "fairness_std": 0.08438431648405244,
+   "jain_index": 0.8858890828826527,
+   "worst_zone_outage_h": 63.75,
+   "mean_residual_deficit_mw": 32.11133931285634,
+   "return": -42.826565731795895,
+   "zone_outage_hours": [
+    23.0,
+    37.5,
+    28.75,
+    44.5,
+    63.75
+   ],
+   "policy": "vdn",
+   "seed": 2,
+   "episode": 3
+  },
+  {
+   "wue_mwh": 76019.68672049644,
+   "fairness_std": 0.08279160653942334,
+   "jain_index": 0.894264652634024,
+   "worst_zone_outage_h": 64.5,
+   "mean_residual_deficit_mw": 31.978517756126035,
+   "return": -43.800812528649416,
+   "zone_outage_hours": [
+    24.0,
+    38.75,
+    30.5,
+    44.5,
+    64.5
+   ],
+   "policy": "vdn",
+   "seed": 2,
+   "episode": 4
+  },
+  {
+   "wue_mwh": 75211.69310196252,
+   "fairness_std": 0.08369077253893208,
+   "jain_index": 0.8910060786502916,
+   "worst_zone_outage_h": 64.5,
+   "mean_residual_deficit_mw": 30.813387031687906,
+   "return": -43.44597101122793,
+   "zone_outage_hours": [
+    24.25,
+    37.75,
+    29.5,
+    45.0,
+    64.5
+   ],
+   "policy": "vdn",
+   "seed": 3,
+   "episode": 0
+  },
+  {
+   "wue_mwh": 74434.46966869241,
+   "fairness_std": 0.08704733901174087,
+   "jain_index": 0.8818363273453094,
+   "worst_zone_outage_h": 65.0,
+   "mean_residual_deficit_mw": 34.0336345326052,
+   "return": -43.63259560289926,
+   "zone_outage_hours": [
+    22.5,
+    38.5,
+    29.25,
+    44.5,
+    65.0
+   ],
+   "policy": "vdn",
+   "seed": 3,
+   "episode": 1
+  },
+  {
+   "wue_mwh": 78703.82733142619,
+   "fairness_std": 0.08373944411765454,
+   "jain_index": 0.8962566914997477,
+   "worst_zone_outage_h": 65.75,
+   "mean_residual_deficit_mw": 34.85376452203164,
+   "return": -45.960791744200655,
+   "zone_outage_hours": [
+    25.5,
+    41.5,
+    29.75,
+    44.25,
+    65.75
+   ],
+   "policy": "vdn",
+   "seed": 3,
+   "episode": 2
+  },
+  {
+   "wue_mwh": 131957.2335190848,
+   "fairness_std": 0.06154600716319806,
+   "jain_index": 0.9680885913953219,
+   "worst_zone_outage_h": 71.75,
+   "mean_residual_deficit_mw": 67.12459751877566,
+   "return": -71.38238520368162,
+   "zone_outage_hours": [
+    51.0,
+    61.0,
+    41.0,
+    60.0,
+    71.75
+   ],
+   "policy": "vdn",
+   "seed": 3,
+   "episode": 3
+  },
+  {
+   "wue_mwh": 74187.90329703377,
+   "fairness_std": 0.08653807997473878,
+   "jain_index": 0.8812239221140473,
+   "worst_zone_outage_h": 65.5,
+   "mean_residual_deficit_mw": 29.67145014098823,
+   "return": -42.633802893010575,
+   "zone_outage_hours": [
+    23.25,
+    37.0,
+    29.5,
+    42.75,
+    65.5
+   ],
+   "policy": "vdn",
+   "seed": 3,
+   "episode": 4
+  }
+ ]
+}

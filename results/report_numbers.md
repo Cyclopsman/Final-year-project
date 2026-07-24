@@ -23,6 +23,10 @@ Generated from `all_policies_metrics.csv` (env: commit `b2bb661`, config `ecf46c
 
 **RQ2 (can learned policies occupy the gap):** QMIX attains WUE 85100 ± 25995 MWh (1.21× Priority, 0.64× Proportional) with Jain 0.955 ± 0.018 (vs Priority's 0.483) and 59 MW residual deficit (vs RoundRobin's 203 MW), plus the best mean return of all nine policies (-50.0 ± 8.9). It therefore *occupies* the previously empty region of the efficiency–fairness frontier. This is an occupation claim, NOT dominance: Priority remains better on WUE alone and the rotation schemes on fairness alone; no learned agent beats every baseline on every metric.
 
+**Return margin vs the strongest baseline (Proportional):** the unpaired stds overlap, but the policies are evaluated on identical episode seeds, so a paired test is valid and removes the shared episode-difficulty variance: QMIX beats Proportional in 19/20 paired episodes, mean difference +2.24 return, paired t = 7.11, p = 9.2e-07. The margin is small but systematic.
+
+**Against the Proportional rebuttal (fair AND feasible):** Proportional achieves its fairness by ignoring criticality — it sheds Greater Accra (criticality 1.00) at the same rate as Northern (0.55). QMIX matches its feasibility, near-matches its fairness (Jain 0.955 vs 1.000), and cuts criticality-weighted loss by 36% (85100 vs 132972 MWh).
+
 *Note on identical rows:* RoundRobin and FairRotation produce identical metrics because they reduce to the same shed sequence: both shed exactly one full zone per deficit-hour, both observe the same exogenous deficit sequence (actions do not feed back into demand or supply), and FairRotation's least-shed-first selection with ties broken by lowest zone index collapses to a fixed cycle — after every full rotation all cumulative outage counts are equal again. Verified empirically across supply levels and seeds.
 
 - VDN vs QMIX: QMIX > VDN on return here (-50.0 vs -51.2); report as an empirical, task-dependent finding (Papoudakis et al. 2021).

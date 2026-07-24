@@ -14,7 +14,7 @@ policies can *occupy* that empty region of the Pareto frontier.
 
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
-pip install torch gymnasium numpy pandas matplotlib pyyaml
+pip install torch gymnasium numpy pandas matplotlib pyyaml scipy
 ```
 
 (CPU-only torch is sufficient: `pip install torch --index-url https://download.pytorch.org/whl/cpu`.)

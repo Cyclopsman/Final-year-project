@@ -27,10 +27,32 @@ def fmt(mean: float, std: float, nd: int = 1) -> str:
     return f"{mean:.{nd}f} ± {std:.{nd}f}"
 
 
+def paired_test(raw_episodes: list[dict], a: str, b: str) -> dict:
+    """Paired t-test on per-episode returns. Pairing is valid because every
+    policy is evaluated on the SAME episode seeds — differences cancel the
+    shared episode difficulty (season, shock draws) that dominates the
+    unpaired stds."""
+    import numpy as np
+    from scipy import stats
+
+    def rets(p):
+        rows = sorted((r for r in raw_episodes if r["policy"] == p),
+                      key=lambda r: (r["seed"], r["episode"]))
+        return np.array([r["return"] for r in rows])
+
+    x, y = rets(a), rets(b)
+    d = x - y
+    t, p = stats.ttest_rel(x, y)
+    return {"t": float(t), "p": float(p), "mean_diff": float(d.mean()),
+            "wins": int((d > 0).sum()), "n": len(d)}
+
+
 def main() -> None:
     df = pd.read_csv(RESULTS / "all_policies_metrics.csv").set_index("policy")
     with open(RESULTS / "eval_raw.json") as f:
-        stamp = json.load(f)["stamp"]
+        raw = json.load(f)
+    stamp = raw["stamp"]
+    raw_episodes = raw["episodes"]
     ablation = None
     if (RESULTS / "ablation_beta.json").exists():
         with open(RESULTS / "ablation_beta.json") as f:
@@ -116,6 +138,33 @@ def main() -> None:
             f"frontier. This is an occupation claim, NOT dominance: Priority "
             f"remains better on WUE alone and the rotation schemes on fairness "
             f"alone; no learned agent beats every baseline on every metric."
+        )
+        lines.append("")
+        # Return margin vs the strongest baseline: the unpaired stds overlap,
+        # so report the PAIRED test (same episode seeds for every policy).
+        strongest = max(baselines, key=lambda b: df.loc[b, "return_mean"])
+        pt = paired_test(raw_episodes, best_agent, strongest)
+        lines.append(
+            f"**Return margin vs the strongest baseline ({LABELS[strongest]}):** "
+            f"the unpaired stds overlap, but the policies are evaluated on "
+            f"identical episode seeds, so a paired test is valid and removes the "
+            f"shared episode-difficulty variance: {LABELS[best_agent]} beats "
+            f"{LABELS[strongest]} in {pt['wins']}/{pt['n']} paired episodes, mean "
+            f"difference {pt['mean_diff']:+.2f} return, paired t = {pt['t']:.2f}, "
+            f"p = {pt['p']:.1e}. The margin is small but systematic."
+        )
+        lines.append("")
+        # The examiner's hardest rebuttal, answered in one sentence.
+        lines.append(
+            f"**Against the {LABELS[strongest]} rebuttal (fair AND feasible):** "
+            f"{LABELS[strongest]} achieves its fairness by ignoring criticality — "
+            f"it sheds Greater Accra (criticality 1.00) at the same rate as "
+            f"Northern (0.55). {LABELS[best_agent]} matches its feasibility, "
+            f"near-matches its fairness (Jain {ba['jain_index_mean']:.3f} vs "
+            f"{df.loc[strongest, 'jain_index_mean']:.3f}), and cuts "
+            f"criticality-weighted loss by "
+            f"{100 * (1 - ba['wue_mwh_mean'] / df.loc[strongest, 'wue_mwh_mean']):.0f}% "
+            f"({ba['wue_mwh_mean']:.0f} vs {df.loc[strongest, 'wue_mwh_mean']:.0f} MWh)."
         )
         lines.append("")
         # RoundRobin ≡ FairRotation: verified in code (identical action

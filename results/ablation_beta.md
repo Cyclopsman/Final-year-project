@@ -15,4 +15,4 @@ Agent: QMIX · 200,000 steps per point · seed 42 · supply = 2000 MW · 5 episo
 - σ_fair monotonically non-increasing in β: **True** (0.2416 → 0.0785 → 0.0484 → 0.0289)
 - WUE monotonically non-decreasing in β: **False** (79650 → 91126 → 85100 → 89895)
 
-At least one direction is NOT monotone at this budget/seed — treat the deviation as a finding (single-seed noise is the first suspect; std columns above give the scale) and report it as such.
+Interpretation for the report: the fairness axis responds to β monotonically and cleanly — every increase in β lowers σ_fair — which is the direct test of the reward design. The efficiency axis does not resolve at this budget: each β point is a single training run, and the per-episode WUE stds (±16904–25337 MWh) exceed the largest point-to-point WUE difference (11476 MWh), so the expected WUE increase is visible only as a trend from β = 0 (79650) to β > 0 (≥ 85100), not as a monotone curve. Resolving it would need multiple training seeds per β, which is outside the locked scope.

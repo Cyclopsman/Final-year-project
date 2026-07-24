@@ -141,7 +141,9 @@ t8 INTERFACE CONTRACT: after step(), info contains keys exactly named
 
 ## 6. Evaluation protocol (src/evaluation/evaluate.py)
 - Policies: 6 baselines + IDQN + VDN + QMIX (load checkpoints).
-- 5 eval episodes × 3 seeds each, supply=2000, ε=0 for agents.
+- 5 eval episodes × 4 seeds each (20 episodes/policy), supply=2000, ε=0 for agents.
+  (Raised from 3 to 4 seeds 2026-07-24 — see design_decisions.md; protocol is
+  identical for every policy.)
 - Metrics per policy (mean ± std): weighted unserved energy (MWh/episode),
   fairness std of zone outage rates, Jain index J = (Σx)²/(n Σx²) over zone outage hours,
   worst-zone outage hours, mean residual deficit (MW), mean return.
@@ -154,7 +156,8 @@ t8 INTERFACE CONTRACT: after step(), info contains keys exactly named
 2. policy_comparison.png — grouped bar chart of key metrics (normalized).
 3. zone_outage.png — per-zone cumulative outage hours per policy (grouped bars).
 4. training_curves.png — smoothed episode return vs steps for IDQN/VDN/QMIX.
-5. ablation_beta.png — fairness metric & WUE vs β ∈ {0, 0.5, 2.0} (best agent, reduced steps ok).
+5. ablation_beta.png — fairness metric & WUE vs β ∈ {0, 0.25, 0.5, 1.0} (best agent,
+   full main budget per point; β grid revised 2026-07-24, see design_decisions.md).
 6. forecaster_validation.png — pred vs actual 48h sample + MAE table inset.
 
 ## 8. Report data handoff

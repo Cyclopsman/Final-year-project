@@ -30,23 +30,30 @@ python -m tests.test_environment      # expect 8/8 PASS
 ```bash
 python -m src.training.train_idqn     # 130k steps  (~10 min CPU)
 python -m src.training.train_vdn      # 150k steps  (~ 8 min CPU)
-python -m src.training.train_qmix     # 200k steps  (~10 min CPU)
-python -m src.forecasting.lstm_forecaster            # LSTM demand forecaster
-python -m src.training.run_beta_ablation --agent vdn # β ∈ {0, 0.5, 2.0} @ 60k
+python -m src.training.train_qmix     # 200k steps  (~10 min CPU; runs a
+                                      # monotonicity + IGM mixer check first)
+python -m src.forecasting.lstm_forecaster             # LSTM demand forecaster
+python -m src.training.run_beta_ablation --agent qmix # β ∈ {0, 0.25, 0.5, 1.0},
+                                      # full budget per point (β=0.5 reuses the
+                                      # main checkpoint — same seed/config)
 ```
 
-Checkpoints land in `models/saved_models/`, training logs in
-`results/train_log_*.csv`. All experiments run at `supply.mean_mw = 2000`
-(never compare policies across supply levels).
+Checkpoints land in `models/saved_models/`, training logs (per-episode
+return, WUE, σ_fair, worst-zone outage hours) in `results/logs/*_train.csv`.
+All experiments run at `supply.mean_mw = 2000` (never compare policies
+across supply levels). Training seeds all RNGs *before* network init, so
+identical commands reproduce identical checkpoints.
 
 ## Evaluate
 
 ```bash
-python -m src.evaluation.evaluate     # → results/all_policies_metrics.csv + eval_raw.json
+python -m src.evaluation.evaluate     # → results/all_policies_metrics.csv,
+                                      #   eval_raw.json, {idqn,vdn,qmix}_eval.json
 ```
 
-9 policies (6 baselines + IDQN/VDN/QMIX) × 5 episodes × 3 seeds, greedy
-agents, results stamped with git commit + config hash.
+9 policies (6 baselines + IDQN/VDN/QMIX) × 5 episodes × 4 seeds (20 episodes
+each, one protocol for all), greedy agents, results stamped with git commit
++ config hash.
 
 ## Regenerate figures & report numbers
 

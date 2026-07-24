@@ -1,0 +1,5 @@
+mixer consistency: min dQtot/dQz=4.08e-01 (>=0), IGM 8/8 states exact
+QMIX: 200000 steps, seed 42, beta=0.5
+step 5000/200000  eval_return=  -77.56  best=  -77.56  eps=0.921  loss=0.02351  309 steps/s  ETA 11 min
+step 10000/200000  eval_return=  -75.61  best=  -75.61  eps=0.842  loss=0.05099  288 steps/s  ETA 11 min
+step 15000/200000  eval_return=  -78.54  best=  -75.61  eps=0.762  loss=0.03414  283 steps/s  ETA 11 min

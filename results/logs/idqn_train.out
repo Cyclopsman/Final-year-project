@@ -1,0 +1,4 @@
+IDQN: 130000 steps, seed 42, beta=0.5
+step 5000/130000  eval_return=  -81.74  best=  -81.74  eps=0.921  loss=0.02158  253 steps/s  ETA 8 min
+step 10000/130000  eval_return=  -70.89  best=  -70.89  eps=0.842  loss=0.02667  241 steps/s  ETA 8 min
+step 15000/130000  eval_return=  -68.64  best=  -68.64  eps=0.762  loss=0.03121  234 steps/s  ETA 8 min

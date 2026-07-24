@@ -146,3 +146,59 @@ baselines would only diverge in regimes with intermittent deficits. Kept
 both in the table (they are distinct *algorithms* that happen to coincide
 in this regime) with this explanation; collapsing them post-hoc would be
 result-driven baseline pruning.
+
+## 2026-07-24 — (k) CORRECTION to (j): RoundRobin ≡ FairRotation is structural,
+not supply-specific
+
+Empirical re-verification (action sequences compared at supply ∈ {2000, 2600,
+3000} MW, 3 seeds each, including the intermittent-deficit regime with only
+~31 deficit-hours/episode) shows the two baselines produce **identical action
+sequences at every supply level**, not only under persistent deficit as (j)
+claimed. The correct mechanism: (1) both shed exactly one full zone per
+deficit-hour, in equal increments; (2) the deficit indicator is exogenous —
+actions never feed back into demand or supply — so both policies see the same
+deficit-hour sequence; (3) FairRotation's least-shed-first selection with
+ties broken by lowest zone index (np.argmin) therefore collapses to a fixed
+cycle: after every full rotation all cumulative outage counts are equal
+again. They would diverge only with unequal shed increments (partial
+shedding) or randomized tie-breaking. Kept both baselines in the table as
+distinct algorithms with this one-sentence explanation in report_numbers.md.
+
+## 2026-07-24 — (l) Reproducibility fix: seed global RNGs before network init
+
+Previously `set_global_seeds(seed)` ran inside `run_training`, i.e. AFTER the
+agent (and its torch-initialized networks) was constructed, so identical
+commands produced different initial weights and therefore different
+checkpoints. Fixed: every train script seeds before construction. Because the
+originally shipped checkpoints came from the unseeded path, all three agents
+were retrained on the fixed path (same env version, same config, seed 42) and
+every downstream artifact (eval CSV/JSONs, figures, report numbers) was
+regenerated from the new checkpoints in one pass — no mixing of old and new
+numbers (Hard Rule 1).
+
+## 2026-07-24 — (m) Protocol updates: 20 eval episodes; β grid {0, 0.25, 0.5, 1.0}
+at full budget
+
+(1) Evaluation now uses 4 seeds × 5 episodes = 20 episodes per policy
+(previously 3 × 5), identical for all nine policies; satisfies the ≥5×≥3
+minimum with tighter CIs. (2) The β-ablation grid changed from {0, 0.5, 2.0}
+at 60k steps to {0, 0.25, 0.5, 1.0} at the FULL main budget per point
+(supervision request, 2026-07-24): equal budgets remove the
+training-length confound entirely, the denser low-β region probes where the
+frontier bends fastest, and — because init is now seeded — the β = 0.5 point
+is definitionally the main checkpoint (identical seed/config/code path), so
+it is reused rather than retrained. Still ONE ablation axis (trimmed scope
+unchanged). Superseded 60k artifacts were deleted, not archived, to make
+mixing impossible.
+
+## 2026-07-24 — (n) Report framing: feasibility is a reported metric, not a filter
+
+Earlier report_numbers.md drafts excluded "infeasible" baselines (residual
+deficit above a threshold) from best-on-metric comparisons; the threshold was
+also inconsistent with the figure's (25 vs 100 MW) and would disqualify
+baselines on a criterion the learned agents do not meet either (their
+residual deficits are small but nonzero). Removed the filter everywhere:
+residual deficit is now simply the third reported axis, the Pareto claim is
+stated as occupation of the (low-WUE, high-Jain, low-residual) region with
+each baseline's own concession spelled out, and the pareto figure's hollow-
+marker flag (>100 MW) applies uniformly to baselines AND agents.

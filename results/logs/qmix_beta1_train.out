@@ -38,3 +38,5 @@ step 175000/200000  eval_return=  -63.42  best=  -59.94  eps=0.050  loss=0.02448
 step 180000/200000  eval_return=  -66.14  best=  -59.94  eps=0.050  loss=0.01785  240 steps/s  ETA 1 min
 step 185000/200000  eval_return=  -58.93  best=  -58.93  eps=0.050  loss=0.03123  240 steps/s  ETA 1 min
 step 190000/200000  eval_return=  -68.62  best=  -58.93  eps=0.050  loss=0.03042  239 steps/s  ETA 1 min
+step 195000/200000  eval_return=  -69.16  best=  -58.93  eps=0.050  loss=0.02922  239 steps/s  ETA 0 min
+step 200000/200000  eval_return=  -62.82  best=  -58.93  eps=0.050  loss=0.03545  240 steps/s  ETA 0 min

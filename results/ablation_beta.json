@@ -1,0 +1,125 @@
+{
+ "agent": "qmix",
+ "steps": 200000,
+ "seed": 42,
+ "supply_mean_mw": 2000,
+ "protocol": "5 episodes x 4 seeds, eps=0",
+ "runs": [
+  {
+   "beta": 0.0,
+   "checkpoint": "models/saved_models/qmix_beta0.pt",
+   "steps": 200000,
+   "fairness_std": {
+    "mean": 0.24160979249856437,
+    "std": 0.015824282854870735
+   },
+   "wue_mwh": {
+    "mean": 79649.93097089833,
+    "std": 20453.170553037562
+   },
+   "jain_index": {
+    "mean": 0.6379545723032378,
+    "std": 0.06953333351088972
+   },
+   "worst_zone_outage_h": {
+    "mean": 110.475,
+    "std": 7.375593196482572
+   },
+   "mean_residual_deficit_mw": {
+    "mean": 46.91493705968774,
+    "std": 17.346789536173144
+   },
+   "return": {
+    "mean": -40.97910214761729,
+    "std": 9.40566664384896
+   }
+  },
+  {
+   "beta": 0.25,
+   "checkpoint": "models/saved_models/qmix_beta0.25.pt",
+   "steps": 200000,
+   "fairness_std": {
+    "mean": 0.07849805307630578,
+    "std": 0.008937065481462997
+   },
+   "wue_mwh": {
+    "mean": 91126.04555319094,
+    "std": 16904.004781554177
+   },
+   "jain_index": {
+    "mean": 0.9238941384463729,
+    "std": 0.022248005789409477
+   },
+   "worst_zone_outage_h": {
+    "mean": 66.7125,
+    "std": 4.861375191239615
+   },
+   "mean_residual_deficit_mw": {
+    "mean": 39.04646747280776,
+    "std": 13.014276132658734
+   },
+   "return": {
+    "mean": -47.6820584695801,
+    "std": 8.77392947720123
+   }
+  },
+  {
+   "beta": 0.5,
+   "checkpoint": "models/saved_models/qmix.pt",
+   "steps": 200000,
+   "fairness_std": {
+    "mean": 0.04837109740143647,
+    "std": 0.0039831049391469
+   },
+   "wue_mwh": {
+    "mean": 85100.0536588845,
+    "std": 25336.79711431113
+   },
+   "jain_index": {
+    "mean": 0.9552756235894299,
+    "std": 0.017642283933854884
+   },
+   "worst_zone_outage_h": {
+    "mean": 53.125,
+    "std": 7.988468251173062
+   },
+   "mean_residual_deficit_mw": {
+    "mean": 58.80675191101422,
+    "std": 16.113464499914134
+   },
+   "return": {
+    "mean": -49.987161928495766,
+    "std": 8.653339570865032
+   }
+  },
+  {
+   "beta": 1.0,
+   "checkpoint": "models/saved_models/qmix_beta1.pt",
+   "steps": 200000,
+   "fairness_std": {
+    "mean": 0.02886569679342444,
+    "std": 0.005267807332746579
+   },
+   "wue_mwh": {
+    "mean": 89894.65232102181,
+    "std": 22700.595053524372
+   },
+   "jain_index": {
+    "mean": 0.9861668786905025,
+    "std": 0.003524677620150483
+   },
+   "worst_zone_outage_h": {
+    "mean": 48.225,
+    "std": 9.847556803593466
+   },
+   "mean_residual_deficit_mw": {
+    "mean": 44.620308878969084,
+    "std": 5.598360229247308
+   },
+   "return": {
+    "mean": -51.33783394682208,
+    "std": 10.677508124793418
+   }
+  }
+ ]
+}

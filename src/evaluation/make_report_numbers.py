@@ -106,12 +106,12 @@ def main() -> None:
         # filter): state each baseline's own trade-off in full, then place
         # the learned agents in the region none of them reaches.
         lines.append(
-            f"**RQ1 (does the gap exist):** Every fixed-rule baseline concedes at "
+            f"**RQ1 (does the gap exist):** Each of the six tested baselines concedes at "
             f"least one axis. Priority is efficient "
             f"(WUE {pri['wue_mwh_mean']:.0f} MWh) and leaves "
             f"{pri['mean_residual_deficit_mw_mean']:.0f} MW residual deficit, but is "
             f"persistently unfair (Jain {pri['jain_index_mean']:.3f}). "
-            f"RoundRobin/FairRotation are perfectly fair "
+            f"RoundRobin/FairRotation are nearly perfectly fair "
             f"(Jain {rr['jain_index_mean']:.3f}) at comparable WUE "
             f"({rr['wue_mwh_mean']:.0f} MWh), but only by leaving "
             f"{rr['mean_residual_deficit_mw_mean']:.0f} MW of mean uncontrolled "
@@ -120,7 +120,7 @@ def main() -> None:
             f"{pro['mean_residual_deficit_mw_mean']:.0f} MW residual deficit, but "
             f"pays {pro['wue_mwh_mean']:.0f} MWh WUE "
             f"({pro['wue_mwh_mean'] / pri['wue_mwh_mean']:.1f}× Priority) for it. "
-            f"The (low-WUE, high-Jain, low-residual) region is empty of baselines."
+            f"None of the six tested baselines occupies this particular three-metric tradeoff region."
         )
         lines.append("")
         lines.append(
@@ -134,8 +134,8 @@ def main() -> None:
             f"(vs RoundRobin's {rr['mean_residual_deficit_mw_mean']:.0f} MW), plus "
             f"the best mean return of all nine policies "
             f"({ba['return_mean']:.1f} ± {ba['return_std']:.1f}). It therefore "
-            f"*occupies* the previously empty region of the efficiency–fairness "
-            f"frontier. This is an occupation claim, NOT dominance: Priority "
+            f"*occupies* a tradeoff region absent from the six tested baselines in the efficiency, fairness and residual deficit "
+            f"comparison. This does not establish the true Pareto frontier or rule out better heuristics. Priority "
             f"remains better on WUE alone and the rotation schemes on fairness "
             f"alone; no learned agent beats every baseline on every metric."
         )
@@ -151,7 +151,7 @@ def main() -> None:
             f"shared episode-difficulty variance: {LABELS[best_agent]} beats "
             f"{LABELS[strongest]} in {pt['wins']}/{pt['n']} paired episodes, mean "
             f"difference {pt['mean_diff']:+.2f} return, paired t = {pt['t']:.2f}, "
-            f"p = {pt['p']:.1e}. The margin is small but systematic."
+            f"p = {pt['p']:.1e}. The margin is small but systematic for these fixed checkpoints; this test does not measure training seed variability."
         )
         lines.append("")
         # The examiner's hardest rebuttal, answered in one sentence.
@@ -159,9 +159,11 @@ def main() -> None:
             f"**Against the {LABELS[strongest]} rebuttal (fair AND feasible):** "
             f"{LABELS[strongest]} achieves its fairness by ignoring criticality — "
             f"it sheds Greater Accra (criticality 1.00) at the same rate as "
-            f"Northern (0.55). {LABELS[best_agent]} matches its feasibility, "
+            f"Northern (0.55). {LABELS[best_agent]} leaves "
+            f"{ba['mean_residual_deficit_mw_mean']:.1f} MW mean residual deficit versus "
+            f"{df.loc[strongest, 'mean_residual_deficit_mw_mean']:.1f} MW, "
             f"near-matches its fairness (Jain {ba['jain_index_mean']:.3f} vs "
-            f"{df.loc[strongest, 'jain_index_mean']:.3f}), and cuts "
+            f"{df.loc[strongest, 'jain_index_mean']:.3f}), and reduces controlled "
             f"criticality-weighted loss by "
             f"{100 * (1 - ba['wue_mwh_mean'] / df.loc[strongest, 'wue_mwh_mean']):.0f}% "
             f"({ba['wue_mwh_mean']:.0f} vs {df.loc[strongest, 'wue_mwh_mean']:.0f} MWh)."
@@ -195,7 +197,7 @@ def main() -> None:
                 LABELS[a]
                 for a in sorted(agents, key=lambda a: -df.loc[a, "return_mean"])
             )
-            + " — consistent with credit assignment richness (none → additive → monotonic)."
+            + " under training seed 42; unequal training budgets and initialization choices also limit causal attribution to credit assignment."
             if len(agents) == 3 else ""
         )
 
@@ -221,8 +223,8 @@ def main() -> None:
         mean_mae = sum(lstm_mae) / len(lstm_mae)
         lines.append(
             f"- LSTM forecaster per-zone val MAE (MW): {mae_str} "
-            f"(mean {mean_mae:.1f}; read from lstm.pt metadata). Greater Accra sits "
-            f"at its irreducible multiplicative-noise floor."
+            f"(mean {mean_mae:.1f}; read from lstm.pt metadata). The forecaster is standalone and is not an input to the shedding agents. Greater Accra is close to "
+            f"the estimated multiplicative noise floor; this is not proof that all learnable structure was recovered."
         )
     lines += [
         "- Historical pre-rebuild numbers (IDQN return −16.13, WUE 162 MWh; central "

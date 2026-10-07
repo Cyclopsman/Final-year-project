@@ -36,6 +36,7 @@ from src.agents.qmix_agent import QMixAgent, QMixConfig
 from src.agents.vdn_agent import VDNAgent, VDNConfig
 from src.environment.grid_env import GridEnv, load_config
 from src.evaluation.evaluate import LearnedPolicy
+from src.evaluation.location_output import export_locations
 
 FIGDIR = Path("results/figures")
 ZONE_COLORS = ["#D55E00", "#0072B2", "#009E73", "#CC79A7", "#555555"]
@@ -148,9 +149,13 @@ def main() -> None:
                    help="episode seed; keep identical across policies to compare the same week")
     p.add_argument("--gif", action="store_true", default=True)
     p.add_argument("--no-gif", dest="gif", action="store_false")
+    p.add_argument("--map-hour", type=int, default=19,
+                   help="episode hour for location map (0 to 167); full schedule also exported")
     args = p.parse_args()
 
     cfg = load_config()
+    if not 0 <= args.map_hour < cfg["env"]["episode_hours"]:
+        p.error("--map-hour must be within the episode (0 to 167)")
     policy = load_policy(args.policy, cfg)
     trace = rollout(cfg, policy, args.seed)
     zone_names = [z["name"] for z in cfg["zones"]]
@@ -169,6 +174,9 @@ def main() -> None:
     png = FIGDIR / f"demo_{args.policy}.png"
     fig.savefig(png, dpi=300, bbox_inches="tight")
     print(f"wrote {png}")
+    for path in export_locations(cfg, trace, args.policy, args.seed, args.map_hour,
+                                 Path("results/locations")):
+        print(f"wrote {path}")
 
     if args.gif:
         # Fresh figure at screen dpi; reveal 2 hours per frame (~7 s at 12 fps).

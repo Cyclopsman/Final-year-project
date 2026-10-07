@@ -1,0 +1,145 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.197,
+          5.556
+        ]
+      },
+      "properties": {
+        "policy": "qmix",
+        "episode_seed": 0,
+        "zone": "Greater Accra",
+        "reference_place": "Accra",
+        "latitude": 5.556,
+        "longitude": -0.197,
+        "episode_hour_start": 19,
+        "episode_hour_end": 20,
+        "episode_day": 1,
+        "hour_of_day": 19,
+        "shed_fraction": 0.5,
+        "status": "partial zone shedding",
+        "scope": "Simulated controlled shedding only. Points represent aggregate zones, not affected premises or feeders. Residual imbalance is not located. Episode times are illustrative, not a real outage forecast.",
+        "coordinate_source": "https://www.geonames.org/advanced-search.html?continentCode=&country=GH&fclass=P&q=",
+        "title": "Greater Accra: 50% load shed",
+        "marker-color": "#c77c00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.624,
+          6.688
+        ]
+      },
+      "properties": {
+        "policy": "qmix",
+        "episode_seed": 0,
+        "zone": "Ashanti",
+        "reference_place": "Kumasi",
+        "latitude": 6.688,
+        "longitude": -1.624,
+        "episode_hour_start": 19,
+        "episode_hour_end": 20,
+        "episode_day": 1,
+        "hour_of_day": 19,
+        "shed_fraction": 0.5,
+        "status": "partial zone shedding",
+        "scope": "Simulated controlled shedding only. Points represent aggregate zones, not affected premises or feeders. Residual imbalance is not located. Episode times are illustrative, not a real outage forecast.",
+        "coordinate_source": "https://www.geonames.org/advanced-search.html?continentCode=&country=GH&fclass=P&q=",
+        "title": "Ashanti: 50% load shed",
+        "marker-color": "#c77c00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.758,
+          4.927
+        ]
+      },
+      "properties": {
+        "policy": "qmix",
+        "episode_seed": 0,
+        "zone": "Western",
+        "reference_place": "Sekondi-Takoradi",
+        "latitude": 4.927,
+        "longitude": -1.758,
+        "episode_hour_start": 19,
+        "episode_hour_end": 20,
+        "episode_day": 1,
+        "hour_of_day": 19,
+        "shed_fraction": 0.25,
+        "status": "partial zone shedding",
+        "scope": "Simulated controlled shedding only. Points represent aggregate zones, not affected premises or feeders. Residual imbalance is not located. Episode times are illustrative, not a real outage forecast.",
+        "coordinate_source": "https://www.geonames.org/advanced-search.html?continentCode=&country=GH&fclass=P&q=",
+        "title": "Western: 25% load shed",
+        "marker-color": "#c77c00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.471,
+          6.601
+        ]
+      },
+      "properties": {
+        "policy": "qmix",
+        "episode_seed": 0,
+        "zone": "Volta",
+        "reference_place": "Ho",
+        "latitude": 6.601,
+        "longitude": 0.471,
+        "episode_hour_start": 19,
+        "episode_hour_end": 20,
+        "episode_day": 1,
+        "hour_of_day": 19,
+        "shed_fraction": 0.75,
+        "status": "partial zone shedding",
+        "scope": "Simulated controlled shedding only. Points represent aggregate zones, not affected premises or feeders. Residual imbalance is not located. Episode times are illustrative, not a real outage forecast.",
+        "coordinate_source": "https://www.geonames.org/advanced-search.html?continentCode=&country=GH&fclass=P&q=",
+        "title": "Volta: 75% load shed",
+        "marker-color": "#c77c00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.839,
+          9.401
+        ]
+      },
+      "properties": {
+        "policy": "qmix",
+        "episode_seed": 0,
+        "zone": "Northern",
+        "reference_place": "Tamale",
+        "latitude": 9.401,
+        "longitude": -0.839,
+        "episode_hour_start": 19,
+        "episode_hour_end": 20,
+        "episode_day": 1,
+        "hour_of_day": 19,
+        "shed_fraction": 0.5,
+        "status": "partial zone shedding",
+        "scope": "Simulated controlled shedding only. Points represent aggregate zones, not affected premises or feeders. Residual imbalance is not located. Episode times are illustrative, not a real outage forecast.",
+        "coordinate_source": "https://www.geonames.org/advanced-search.html?continentCode=&country=GH&fclass=P&q=",
+        "title": "Northern: 50% load shed",
+        "marker-color": "#c77c00"
+      }
+    }
+  ]
+}

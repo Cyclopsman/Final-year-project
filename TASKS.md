@@ -1,4 +1,9 @@
 # TASKS.md — Ordered build plan to DONE
+Current verified state (2026-10-07): environment tests, saved agents, all 180
+main evaluation episodes and the standalone forecaster were reproduced.
+Report and defence materials remain outstanding. Unticked historical tasks
+below are not a live completion ledger.
+
 Work top-to-bottom. Each task has acceptance criteria (AC). Tick as you go.
 If the local repo/bundle from earlier sessions exists, VERIFY against SPEC.md instead of rewriting.
 
@@ -28,8 +33,8 @@ If the local repo/bundle from earlier sessions exists, VERIFY against SPEC.md in
 - [ ] 2.3 train_qmix.py 200k steps → qmix.pt + log.
       AC each: eval return over last 10 eval episodes clearly better than Random; log saved;
       **verify t8 keys are actually nonzero in logged metrics** (silent-zero bug guard).
-- [ ] 2.4 β-ablation on the best of VDN/QMIX: β ∈ {0, 2.0} at reduced steps (60k), same seed.
-      AC: two extra checkpoints + logs. COMMIT (checkpoints via git-lfs or release asset if large).
+- [x] 2.4 β-ablation on QMIX: β ∈ {0, 0.25, 0.5, 1.0}, 200k steps each,
+      seed 42; β=0.5 reuses the main checkpoint. Supersedes the old 60k plan.
 
 ## Phase 3 — Evaluation & figures
 - [ ] 3.1 evaluate.py per SPEC §6 → all_policies_metrics.csv + eval_raw.json (env stamped).
@@ -44,7 +49,7 @@ If the local repo/bundle from earlier sessions exists, VERIFY against SPEC.md in
 - [ ] 4.2 Push everything to github.com/Cyclopsman/Final-year-project (own credentials; NEVER paste tokens).
       AC: fresh clone + README steps reproduce tests 8/8.
 - [ ] 4.3 Fill report placeholders from report_numbers.md ONLY. Update word count on title page.
-- [ ] 4.4 Email supervisor (saadingo@ug.edu.gh): 5-line progress summary + repo link + ask for meeting slot.
+- [ ] 4.4 Email supervisor: 5-line progress summary + repo link + ask for meeting slot.
 
 ## Guardrails while working
 - Small commits at every AC. Descriptive messages.

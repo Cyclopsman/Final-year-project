@@ -215,3 +215,46 @@ is already framed as task-dependent (Papoudakis et al. 2021), and the core
 occupation claim does not rest on the VDN/QMIX ordering. State this in the
 report's limitations section — pre-empting the question is stronger than
 being asked it.
+
+
+## 2026-10-07 — (p) Geographic reporting at aggregate zone resolution
+
+Supervisor feedback requested coordinates for shedding locations. Added a
+reporting layer to the existing episode demo: the full hourly schedule, a
+GeoJSON snapshot and a static location plot. Each zone maps by name to an
+approximate city reference point from GeoNames, rounded to three decimals.
+These are not regional centroids, feeder positions or customer coordinates.
+The source and coordinate system are recorded in config/zone_locations.yaml.
+
+Display metadata is separate from grid_config.yaml so neither the environment
+configuration hash nor observations, rewards or trained checkpoints change.
+Partial shedding remains a fraction of aggregate demand. There is no basis
+for selecting specific premises inside a zone. System residual imbalance is
+not allocated geographically. Times are simulated episode hours, not dated
+utility outage forecasts. This adds no dashboard or production integration.
+
+## 2026-10-07 — (q) Report wording and verification corrections
+
+Fresh clone verification: all eight environment tests passed; rerunning all
+nine policies on all 20 episode seeds reproduced every saved main metric
+exactly. The config hash remains ecf46c850ae8. The standalone forecaster's
+mean validation MAE reproduces at 13.77 MW and is not wired into the agents.
+Supply is below demand in 3268 of 3360 evaluated hours (97.26%), not 50%.
+
+The paired return test against Proportional reproduces at t=7.1095,
+p=9.2324e-7, with QMIX winning 19/20 episodes. It concerns fixed checkpoints;
+it provides no evidence about variability across training seeds.
+
+Corrected the generated Proportional rebuttal: QMIX leaves 58.8 MW mean
+residual deficit versus zero, so it does not match Proportional's feasibility.
+The 36% reduction is in controlled weighted unserved energy, not total power
+shortfall. Claims are restricted to the six tested baselines and three metrics,
+not a proof about every fixed rule or the true Pareto frontier. Agent ordering
+also cannot be attributed solely to credit assignment: training budgets differ
+and IDQN uses a different initialization scheme from VDN and QMIX.
+
+Nonmonotone ablation energy results may reflect training variability; one
+training seed cannot establish that cause. Episode standard deviations are
+not estimates of training variability. Main CSV standard deviations use the
+sample convention (ddof=1); older per-agent JSON and ablation summaries use
+the population convention (ddof=0), explaining their slightly different spreads.

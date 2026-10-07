@@ -1,6 +1,6 @@
 """Evaluation protocol (SPEC.md §6).
 
-All 9 policies (6 baselines + IDQN + VDN + QMIX), 5 episodes × 3 seeds each
+All 9 policies (6 baselines + IDQN + VDN + QMIX), 5 episodes × 4 seeds each
 at supply = 2000, greedy (ε = 0) for learned agents. Results are stamped
 with the git commit and a config hash so numbers can never be silently
 mixed across environment versions (Hard Rule 1).

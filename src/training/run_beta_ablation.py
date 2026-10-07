@@ -146,7 +146,7 @@ def main() -> None:
             f"point-to-point WUE difference ({max_gap:.0f} MWh), so the "
             f"expected WUE increase is visible only as a trend from β = 0 "
             f"({wue[0]:.0f}) to β > 0 (≥ {min(wue[1:]):.0f}), not as a "
-            f"monotone curve. Resolving it would need multiple training seeds "
+            f"monotone curve. Training variability is a possible explanation, not an established cause; episode spread does not measure training variability. Resolving it would need multiple training seeds "
             f"per β, which is outside the locked scope."
         )
     Path("results/ablation_beta.md").write_text("\n".join(lines))

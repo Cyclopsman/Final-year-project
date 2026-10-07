@@ -3,12 +3,14 @@
 ## What this project is
 Multi-agent reinforcement learning (MARL) system for optimizing electricity load-shedding
 distribution across a 5-zone simulation of Ghana's power grid ("dumsor" problem).
-Student: Noel Osei-Tutu (11285438), University of Ghana, supervisor Mr. Stephen Adingo.
+DCIT 400 project, University of Ghana. Personal identifiers are omitted from public handoff notes.
 
-**The core claim (do not drift from this):** no fixed-rule heuristic simultaneously achieves
-low criticality-weighted unserved energy (efficiency) AND a fair outage distribution (equity).
-Learned cooperative policies (IDQN → VDN → QMIX) can occupy that empty region of the Pareto
-frontier. The contribution is *occupying the region*, NOT "beating every baseline on every metric".
+**The supported claim:** under the evaluated simulation and training seed,
+learned policies occupy a tradeoff region absent from the six tested baselines
+when controlled unserved energy, fairness and residual deficit are considered
+together. This is not proof that no fixed rule could do so. No learned policy
+achieves zero residual deficit. The contribution is the measured tradeoff.
+
 
 ## Grade reality (drives all prioritization)
 - Report = 60% of grade. It is the single largest gap. Everything serves the report.
@@ -41,8 +43,8 @@ frontier. The contribution is *occupying the region*, NOT "beating every baselin
 
 ## Repo layout (authoritative)
 ```
-load-shedding-rl/
-├── config/grid_config.yaml        # SINGLE source of truth for all parameters
+Final-year-project/
+├── config/grid_config.yaml        # experiment parameters; locations are separate display metadata
 ├── src/environment/               # grid_env.py, zone.py, demand_generator.py, supply_model.py
 ├── src/agents/                    # baseline_agents.py, dqn_agent.py, independent_dqn.py,
 │                                  # vdn_agent.py, qmix_agent.py
@@ -84,7 +86,7 @@ NoShedding, Random, RoundRobin, Priority, Proportional, FairRotation.
 - [ ] evaluate.py → results/all_policies_metrics.csv (all 9 policies, mean±std, ≥3 seeds)
 - [ ] Figures: pareto_scatter.png, policy_comparison.png, zone_outage.png,
       training_curves.png, ablation_beta.png, forecaster_validation.png
-- [ ] β-ablation: β ∈ {0, 0.5, 2.0} for best agent (reduced steps OK, document)
+- [ ] β-ablation: β ∈ {0, 0.25, 0.5, 1.0} for QMIX, 200k steps each, seed 42
 - [ ] Repo pushed to github.com/Cyclopsman/Final-year-project (own credentials, no tokens in chat)
 - [ ] Report data table filled from all_policies_metrics.csv ONLY (env version stamped)
 

@@ -19,18 +19,18 @@ Generated from `all_policies_metrics.csv` (env: commit `b2bb661`, config `ecf46c
 
 ## Headline (RQ1 & RQ2) — use this framing verbatim
 
-**RQ1 (does the gap exist):** Every fixed-rule baseline concedes at least one axis. Priority is efficient (WUE 70180 MWh) and leaves 0 MW residual deficit, but is persistently unfair (Jain 0.483). RoundRobin/FairRotation are perfectly fair (Jain 1.000) at comparable WUE (70925 MWh), but only by leaving 203 MW of mean uncontrolled residual deficit — unmet load that never enters WUE. Proportional is fair (Jain 1.000) with 0 MW residual deficit, but pays 132972 MWh WUE (1.9× Priority) for it. The (low-WUE, high-Jain, low-residual) region is empty of baselines.
+**RQ1 (does the gap exist):** Each of the six tested baselines concedes at least one axis. Priority is efficient (WUE 70180 MWh) and leaves 0 MW residual deficit, but is persistently unfair (Jain 0.483). RoundRobin/FairRotation are nearly perfectly fair (Jain 1.000) at comparable WUE (70925 MWh), but only by leaving 203 MW of mean uncontrolled residual deficit — unmet load that never enters WUE. Proportional is fair (Jain 1.000) with 0 MW residual deficit, but pays 132972 MWh WUE (1.9× Priority) for it. None of the six tested baselines occupies this particular three-metric tradeoff region.
 
-**RQ2 (can learned policies occupy the gap):** QMIX attains WUE 85100 ± 25995 MWh (1.21× Priority, 0.64× Proportional) with Jain 0.955 ± 0.018 (vs Priority's 0.483) and 59 MW residual deficit (vs RoundRobin's 203 MW), plus the best mean return of all nine policies (-50.0 ± 8.9). It therefore *occupies* the previously empty region of the efficiency–fairness frontier. This is an occupation claim, NOT dominance: Priority remains better on WUE alone and the rotation schemes on fairness alone; no learned agent beats every baseline on every metric.
+**RQ2 (can learned policies occupy the gap):** QMIX attains WUE 85100 ± 25995 MWh (1.21× Priority, 0.64× Proportional) with Jain 0.955 ± 0.018 (vs Priority's 0.483) and 59 MW residual deficit (vs RoundRobin's 203 MW), plus the best mean return of all nine policies (-50.0 ± 8.9). It therefore *occupies* a tradeoff region absent from the six tested baselines in the efficiency, fairness and residual deficit comparison. This does not establish the true Pareto frontier or rule out better heuristics. Priority remains better on WUE alone and the rotation schemes on fairness alone; no learned agent beats every baseline on every metric.
 
-**Return margin vs the strongest baseline (Proportional):** the unpaired stds overlap, but the policies are evaluated on identical episode seeds, so a paired test is valid and removes the shared episode-difficulty variance: QMIX beats Proportional in 19/20 paired episodes, mean difference +2.24 return, paired t = 7.11, p = 9.2e-07. The margin is small but systematic.
+**Return margin vs the strongest baseline (Proportional):** the unpaired stds overlap, but the policies are evaluated on identical episode seeds, so a paired test is valid and removes the shared episode-difficulty variance: QMIX beats Proportional in 19/20 paired episodes, mean difference +2.24 return, paired t = 7.11, p = 9.2e-07. The margin is small but systematic for these fixed checkpoints; this test does not measure training seed variability.
 
-**Against the Proportional rebuttal (fair AND feasible):** Proportional achieves its fairness by ignoring criticality — it sheds Greater Accra (criticality 1.00) at the same rate as Northern (0.55). QMIX matches its feasibility, near-matches its fairness (Jain 0.955 vs 1.000), and cuts criticality-weighted loss by 36% (85100 vs 132972 MWh).
+**Against the Proportional rebuttal (fair AND feasible):** Proportional achieves its fairness by ignoring criticality — it sheds Greater Accra (criticality 1.00) at the same rate as Northern (0.55). QMIX leaves 58.8 MW mean residual deficit versus 0.0 MW, near-matches its fairness (Jain 0.955 vs 1.000), and reduces controlled criticality-weighted loss by 36% (85100 vs 132972 MWh).
 
 *Note on identical rows:* RoundRobin and FairRotation produce identical metrics because they reduce to the same shed sequence: both shed exactly one full zone per deficit-hour, both observe the same exogenous deficit sequence (actions do not feed back into demand or supply), and FairRotation's least-shed-first selection with ties broken by lowest zone index collapses to a fixed cycle — after every full rotation all cumulative outage counts are equal again. Verified empirically across supply levels and seeds.
 
 - VDN vs QMIX: QMIX > VDN on return here (-50.0 vs -51.2); report as an empirical, task-dependent finding (Papoudakis et al. 2021).
-- Learned-family ordering on return: QMIX > VDN > IDQN — consistent with credit assignment richness (none → additive → monotonic).
+- Learned-family ordering on return: QMIX > VDN > IDQN under training seed 42; unequal training budgets and initialization choices also limit causal attribution to credit assignment.
 
 ## β-ablation (QMIX, 200,000 steps per point, seed 42)
 
@@ -45,5 +45,5 @@ See `results/ablation_beta.md` for the full table and the monotonicity direction
 
 ## Supporting numbers
 
-- LSTM forecaster per-zone val MAE (MW): Greater Accra 21.8, Ashanti 16.8, Western 12.6, Volta 8.5, Northern 9.2 (mean 13.8; read from lstm.pt metadata). Greater Accra sits at its irreducible multiplicative-noise floor.
+- LSTM forecaster per-zone val MAE (MW): Greater Accra 21.8, Ashanti 16.8, Western 12.6, Volta 8.5, Northern 9.2 (mean 13.8; read from lstm.pt metadata). The forecaster is standalone and is not an input to the shedding agents. Greater Accra is close to the estimated multiplicative noise floor; this is not proof that all learnable structure was recovered.
 - Historical pre-rebuild numbers (IDQN return −16.13, WUE 162 MWh; central DQN WUE 3203 MWh) are from an incompatible env version — HISTORICAL ONLY, never in comparison tables (Hard Rule 1).

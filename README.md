@@ -1,14 +1,15 @@
 # MARL Load-Shedding for a 5-Zone Ghana Grid
 
-DCIT 400 final-year project — Noel Osei-Tutu (11285438), University of Ghana.
-Supervisor: Mr. Stephen Adingo.
+DCIT 400 final-year project, University of Ghana.
 
 Multi-agent reinforcement learning (IDQN → VDN → QMIX) for distributing
 electricity load-shedding ("dumsor") across a 5-zone simulation of Ghana's
-grid. **Core claim:** no fixed-rule heuristic is simultaneously efficient
-(low criticality-weighted unserved energy), fair (even outage distribution)
-and feasible (no uncontrolled residual deficit); learned cooperative
-policies can *occupy* that empty region of the Pareto frontier.
+grid. **Finding:** the learned policies occupy a tradeoff region absent from
+these six tested baselines when controlled unserved energy, fairness and
+residual deficit are considered together. This does not prove a universal
+advantage over fixed rules or establish the true Pareto frontier. All learned
+policies have nonzero residual deficit; results use one training seed.
+
 
 ## Setup
 
@@ -23,6 +24,7 @@ pip install torch gymnasium numpy pandas matplotlib pyyaml scipy
 
 ```bash
 python -m tests.test_environment      # expect 8/8 PASS
+python -m unittest tests.test_location_output  # location export checks
 ```
 
 ## Train
@@ -74,6 +76,35 @@ cumulative outage ledger) to `results/figures/demo_<policy>.{png,gif}`.
 Same `--seed` ⇒ same week for every policy, so runs are directly
 comparable side by side. Static matplotlib only; single-episode traces are
 illustrative, never report metrics.
+
+## Where and when does shedding happen?
+
+```bash
+python -m src.evaluation.demo --policy qmix --seed 0 --map-hour 19 --no-gif
+```
+
+This also creates `results/locations/` outputs:
+
+- `locations_qmix_seed0_schedule.csv`: all 168 hours for all five zones,
+  including coordinates, episode day/hour, shed fraction and status.
+- `locations_qmix_seed0_hour19.geojson`: selectable zone markers for hour 19.
+  Open the file on GitHub or in a geographic information system to inspect them.
+- `locations_qmix_seed0_hour19.png`: static coordinate plot for the defence.
+
+[Open the example location map](results/locations/locations_qmix_seed0_hour19.geojson).
+Change `--map-hour` from 0 to 167 to inspect another hour. Episode day 1 begins
+at 00:00; these are simulated times with no real calendar date. A 25% shed
+fraction means 25% of that zone's modelled load, not that every house is off
+for 15 minutes. Zero means no *controlled* shedding, not guaranteed supply:
+residual system imbalance can still exist and is not allocated to locations.
+
+`config/zone_locations.yaml` holds approximate city reference points from
+[GeoNames](https://www.geonames.org/advanced-search.html?continentCode=&country=GH&fclass=P&q=).
+They identify aggregate zones, not region boundaries, substations or affected
+premises. This is a simulation demonstration, not an ECG outage forecast.
+Locations are separate display metadata: the trained environment and its
+configuration hash are unchanged. Feeder level results would require actual
+feeder boundaries, connectivity and operational data, plus a finer model.
 
 ## Repository layout
 

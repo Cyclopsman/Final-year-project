@@ -1,0 +1,11 @@
+# Display metadata only. Kept separate to preserve the experiment config hash.
+# Approximate city reference points, NOT region centroids or feeder locations.
+# Coordinates: GeoNames, rounded to three decimals; accessed 2026-10-07.
+source: https://www.geonames.org/advanced-search.html?continentCode=&country=GH&fclass=P&q=
+coordinate_system: WGS84
+locations:
+  Greater Accra: {place: Accra, latitude: 5.556, longitude: -0.197}
+  Ashanti: {place: Kumasi, latitude: 6.688, longitude: -1.624}
+  Western: {place: Sekondi-Takoradi, latitude: 4.927, longitude: -1.758}
+  Volta: {place: Ho, latitude: 6.601, longitude: 0.471}
+  Northern: {place: Tamale, latitude: 9.401, longitude: -0.839}
